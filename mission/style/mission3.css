@@ -1,0 +1,38 @@
+div{
+	padding: 20px;
+	border: 2px solid #999;
+	height: auto;
+	margin-right: 20px;
+	overflow: auto;
+	display: inline-block;
+	float: left;
+	background-color: white;
+	
+}
+.outside{
+	width: 100%;
+	background-color: #eee;
+}
+#div1{
+	width: 200px;
+}
+#div2{
+	width: 50%;
+	height: auto;
+}
+#div3{
+	width: 80px;
+	padding-bottom: 0;
+}
+
+img , p {
+	float: left;
+}
+p{
+	margin-top: 0;
+	margin-left: 20px;
+}
+img{
+	margin-bottom: 20px;
+}
+
