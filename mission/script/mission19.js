@@ -67,6 +67,7 @@ function bubbleSort () {
 		if (i==listData.length) {
 			if (same != 0) {
 				i=0;
+				same = 0;
 			}
 			else{
 			clearInterval(timer);
