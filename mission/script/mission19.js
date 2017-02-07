@@ -82,7 +82,11 @@ function bubbleSort () {
 
 }
 function init()  {
-	// body... 
+	for (var i = 0; i < 20 ;i++) {
+		listData.push(Math.ceil(Math.random()*99));
+	}
+	renderList();
+	
 	document.getElementById('leftin').addEventListener('click',function () {
 		leftin();
 		renderList();
