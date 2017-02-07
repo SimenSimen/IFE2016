@@ -1,0 +1,11 @@
+#leftout,#bubbleSort{
+	margin-left: 15px;
+}
+.numberbox{
+	width: 10px;
+	height: 20px;
+	background-color: red;
+	margin: 1px;
+	font-size: 20px;
+	display: inline-block;
+}

@@ -65,11 +65,17 @@ function init()  {
 	});
 	document.getElementById('leftout').addEventListener('click',function () {
 		/* body... */
+		if (listData.length>0) {
+			alert(listData[0]);
+		}
 		leftout();
 		renderList();
 	});
 	document.getElementById('rightout').addEventListener('click',function () {
 		/* body... */
+		if (listData.length>0) {
+			alert(listData[listData.length-1]);
+		}
 		rightout();
 		renderList();
 	});
