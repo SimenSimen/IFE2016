@@ -13,16 +13,26 @@ var aqiData = {};
  * 然后渲染aqi-list列表，增加新增的数据
  */
 function addAqiData() {
-	var city = document.getElementById('aqi-city-input').value;
-	var aqi = document.getElementById('aqi-value-input').value;
-	aqiData[city] = aqi;
+	var city = document.getElementById('aqi-city-input').value.trim();
+	var aqi = document.getElementById('aqi-value-input').value.trim();
+	if (!city.match(/^[a-zA-z\u4e00-\u9fff]+$/)) {
+		// statement
+		alert("須為中英文字")
+		return;
+	}
+	
+	 if(!aqi.match(/^\d+$/)) {
+        alert("須為整數")
+        return;
+    }
+    aqiData[city] = aqi;
 }
 /**
  * 渲染aqi-table表格
  */
 function renderAqiList() {
 	var table = document.getElementById('aqi-table');
-	table.innerHTML ="";
+	table.innerHTML ="<tr><td>城市</td><td>空氣質量</td><td>操作</td></tr>";
 	for (city in aqiData) {
 		var tr = document.createElement('tr');
 		tr.innerHTML = '<td>'+city+'</td>'+'<td>'+aqiData[city]+'</td><td><button>删除</button></td>'
@@ -49,7 +59,7 @@ function delBtnHandle() {
   var city = this.parentNode.parentNode.children[0].innerHTML;
   delete aqiData[city] ; 
   renderAqiList();
-  for (var i = 0; i < table.children.length; i++) {
+  for (var i = 1; i < table.children.length; i++) {
 				(function(n){table.children[n].children[2].children[0].onclick = delBtnHandle;})(i);
 		}	
 }
@@ -60,7 +70,7 @@ function init() {
 	  btn.onclick = function(){
 	  	addBtnHandle();
 	  	var table = document.getElementById('aqi-table');
-		for (var i = 0; i < table.children.length; i++) {
+		for (var i = 1; i < table.children.length; i++) {
 				(function(n){table.children[n].children[2].children[0].onclick = delBtnHandle;})(i);
 		}	
 	}
