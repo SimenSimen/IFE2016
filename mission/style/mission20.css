@@ -1,0 +1,13 @@
+.stringbox{
+	width: auto;
+	background-color: red;
+	color: white;
+	padding: 5px;
+	margin: 10px;
+	font-size: 20px;
+	float: left;
+}
+.got{
+	color:yellow;
+	background: black;
+}

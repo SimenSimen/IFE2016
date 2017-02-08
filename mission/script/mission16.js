@@ -15,7 +15,7 @@ var aqiData = {};
 function addAqiData() {
 	var city = document.getElementById('aqi-city-input').value.trim();
 	var aqi = document.getElementById('aqi-value-input').value.trim();
-	if (!city.match(/^[a-zA-z\u4e00-\u9fff]+$/)) {
+	if (!city.match(/^[a-zA-z\u4e00-\u9fff]+\s?([a-zA-z]+)?$/)) {
 		// statement
 		alert("須為中英文字")
 		return;

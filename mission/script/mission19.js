@@ -59,6 +59,7 @@ function renderList () {
 		}
 	
 }
+//實現氣泡排序
 function bubbleSort () {
 	// body... 
 	var i = 0;
