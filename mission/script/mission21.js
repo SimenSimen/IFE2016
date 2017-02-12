@@ -42,7 +42,11 @@
 				}
 				for(var k = 0; k < 100; k++){
 				 	fn.call(this.hobbies);
+				 	if (this.hobbies.length > 10) {
+						this.hobbies.shift();
+					}
 				}
+				
 			}
 		}	
 	} ,
