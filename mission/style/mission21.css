@@ -1,0 +1,17 @@
+.tagsBox , .deletedBox , .hobbiesBox{
+	background-color: #0080FF;
+	color: #FCFCFC;
+	font-size: 25px;
+	padding: 2px;
+	display: inline-block;
+	width: auto;
+	height: auto;
+	margin: 5px;
+}
+.deletedBox{
+	background-color: red;
+	cursor: pointer;
+}
+.hobbiesBox{
+	background-color: #FFD1A4; 
+}
