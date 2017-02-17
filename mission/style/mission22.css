@@ -1,0 +1,21 @@
+.binaryTree div{
+	border: 2px solid black; 
+	display: inline-flex;
+	margin: 20px;
+	background: white;
+}
+.level0{
+	flex: 1;
+}
+.level1{
+	width: 450px;
+	
+}
+.level2{
+	width: 180px;
+	}
+.level3{
+	width: 90px;
+	height: 20px;
+	
+}
