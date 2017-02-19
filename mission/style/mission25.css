@@ -1,9 +1,27 @@
 .main{
 	margin-left: 45%;
+	border-radius: 5px;
+	border : 1px solid #EEEEEE;
+	padding: 10px;
+	width: 300px;
 }
 .is-hidden{
 	display: none;
 }
+.show-up{
+
+}
 .listImg{
 	cursor: pointer;
+	height: 15px;
+	width: 19px;
+}
+.classBlock{
+	display: block;
+	margin: 10px;
+	width: auto;
+	height: auto;
+}
+span{
+	padding: 0 5px;
 }
