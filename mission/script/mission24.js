@@ -16,13 +16,14 @@
 			bfs(troot.firstElementChild); 
 		}	
 	}
-	function reset (){
+	function reset (node){
 		if (animating) {
 			alert('動畫執行中');
 			return false;
 		}
 		traversal = [];
 		bfsindex = 0;
+		node.style.borderColor = 'black';
 		return true;
 	}
 	function animat(btn) {
@@ -68,36 +69,66 @@
 			i++;
 		}, '500');
 		}
-		
 	}
-window.onload = function () {
+	function addNodes (node) {
+		var input = document.getElementsByTagName('input')[1].value;
+		var div = document.createElement('div');
+		div.innerHTML = input;
+		node.appendChild(div);
+	}
+	function deleteNodes (node) {
+		if (node) {		
+			if(node.className == 'super'){
+				alert('請勿移除主框');
+				return;
+			}
+			node.parentNode.removeChild(node);
+		}
+	}
+window.onload = () => {
 	var tr = document.getElementsByClassName('super')[0];
 	var btn = document.getElementsByTagName('button');
-	var dfsbtn = btn[0] , bfsbtn = btn[1] , dfsearch = btn[2] , bfsearch = btn[3];
-	dfsbtn.onclick = function () {
-		if (reset()) {
+	var dfsbtn = btn[0] , bfsbtn = btn[1] , dfsearch = btn[2] , bfsearch = btn[3] , addNodesbtn = btn[4] , deletebtn = btn[5];
+	var selectqueue = [];
+	dfsbtn.onclick = () => {
+		if (reset(selectqueue[0])) {
 		dfs(tr);
 		animat(1);
 		}
-		
 	}
-	bfsbtn.onclick = function () {
-		if (reset()) {
+	bfsbtn.onclick = () => {
+		if (reset(selectqueue[0])) {
 		bfs(tr);
 		animat(2);
 		}
 	}
-	dfsearch.onclick = function () {
-		if (reset()) {
+	dfsearch.onclick = () => {
+		if (reset(selectqueue[0])) {
 		dfs(tr);
 		animat(3);
 		}
 	}
-	bfsearch.onclick = function () {
-		if (reset()) {
+	bfsearch.onclick = () => {
+		if (reset(selectqueue[0])) {
 		bfs(tr);
 		animat(4);
 		}
 	}
+	addNodesbtn.onclick = () => {
+		reset(selectqueue[0]);
+		addNodes(selectqueue[0]);
+	}
+	deletebtn.onclick = () => {
+		deleteNodes(selectqueue[0]);
+	}
+	tr.addEventListener('click',(event) => {
+		if (event.target.tagName == 'DIV') {
+			if (selectqueue.length)
+				selectqueue[0].style.borderColor = 'black';
+			selectqueue = [];
+			selectqueue.push(event.target);
+			event.target.style.borderColor = 'red';
+		}
+	});;
 };	
 })();

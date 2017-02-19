@@ -1,0 +1,7 @@
+.super div , .super{
+	border: 2px solid black; 
+	margin: 10px;
+	background: white;
+	padding:5px 0;
+	display: inline-flex;
+}
