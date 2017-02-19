@@ -1,3 +1,9 @@
 .main{
 	margin-left: 45%;
 }
+.is-hidden{
+	display: none;
+}
+.listImg{
+	cursor: pointer;
+}
