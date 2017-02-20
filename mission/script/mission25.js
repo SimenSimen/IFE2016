@@ -47,20 +47,18 @@
 	function inputClear (input) {
 		input.value = "";
 	}
-	function searchEffect (nodes) { 
-		for (var i = 0; i < nodes.length; i++) {
-			console.log(nodes);
-			var color = 100;
-			var timer = setInterval(() => {
-				var rgb = color.toString(16) + color.toString(16) + color.toString(16);
-				toUpperCase(rgb);
-				node[i].style.border = '2px solid' + ' #' + rgb;
-				color++;
-				if (color == 255) {
-					clearInterval(timer);
-				}
-			} , '100');
-		}
+	function searchEffect (node) { 
+		var color = 100;
+		var timer = setInterval(() => {
+			if (color >= 255) {
+				node.style.border = 'none';
+				clearInterval(timer);
+			}
+			var rgb = color.toString(16) + color.toString(16) + color.toString(16);
+			node.style.border = '2px solid' + ' #' + rgb.toUpperCase();;
+			color += 3;
+			
+		} , '10');
 	}
 	function init() {
 		window.onload = () => {
@@ -82,6 +80,10 @@
 					}
 					searchinit();
 					var results = searchNode(troot , value);
+					if (!results.length) {
+						alert('查詢無結果');
+						return ;
+					}
 					for (var i = 0; i < results.length; i++) {
 						searchEffect(results[i]);
 						var parent = results[i].parentElement.parentElement;
