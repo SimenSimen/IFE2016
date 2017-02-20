@@ -1,15 +1,17 @@
-.main{
+.main , .btnList{
 	margin-left: 45%;
 	border-radius: 5px;
-	border : 1px solid #EEEEEE;
+	border : 5px solid #EEEEEE;
 	padding: 10px;
 	width: 300px;
+	margin-bottom: 40px;
 }
 .is-hidden{
 	display: none;
 }
 .show-up{
-
+	display: block;
+	padding-left: 20px;
 }
 .listImg{
 	cursor: pointer;
@@ -22,6 +24,9 @@
 	width: auto;
 	height: auto;
 }
-span{
+.subtitle{
 	padding: 0 5px;
+	cursor: pointer;
+	color : #7B7B7B;
+	font-size: 14px;      
 }
