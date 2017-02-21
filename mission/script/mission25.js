@@ -80,7 +80,7 @@
 				if (element.className == 'listImg' || element.className == 'subtitle') {
 					addBlock.className = 'addElement';
 					addBlock.style.top = element.offsetTop - 20 + 'px';
-					addBlock.style.left = 350 + 'px';
+					addBlock.style.left = 550 + 'px';
 					folderTitle.innerHTML = element.className == 'listImg' ? element.nextElementSibling.innerHTML : element.innerHTML;
 					folder = undefined;
 					folder = element;
