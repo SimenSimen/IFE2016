@@ -65,11 +65,25 @@
 			var input = document.getElementsByTagName('input');
 			var button = document.getElementsByTagName('button');
 			var troot = document.getElementsByClassName('main')[0];
+			var addBlock = document.getElementById('addBlock');
+			var folderTitle = document.getElementById('addBlockP');
+			var folder ; 
 			troot.addEventListener('click',(event) => {
 				var element = event.target;
 				if (element.className == 'listImg' || element.className == 'subtitle') {
 					folderOpener(element = element.className == 'listImg' ? element : element.previousElementSibling);
 					listHidden(ul = element.className == 'listImg' ? element.nextElementSibling.nextElementSibling : element.nextElementSibling);
+				}
+			});
+			troot.addEventListener('mouseover' , (event) => {		
+				var element = event.target;
+				if (element.className == 'listImg' || element.className == 'subtitle') {
+					addBlock.className = 'addElement';
+					addBlock.style.top = element.offsetTop - 20 + 'px';
+					addBlock.style.left = 350 + 'px';
+					folderTitle.innerHTML = element.className == 'listImg' ? element.nextElementSibling.innerHTML : element.innerHTML;
+					folder = undefined;
+					folder = element;
 				}
 			});
 			button[0].addEventListener('click' , ()=>{
@@ -96,6 +110,28 @@
 			});
 			button[1].addEventListener('click' , ()=>{
 				inputClear(input[0]);
+			});
+			button[2].addEventListener('click' , ()=>{
+				var div = folder.className == 'listImg' ? folder.nextElementSibling.nextElementSibling : folder.nextElementSibling ; 
+				var value = input[1].value ; 
+					if(!value){
+						alert('請輸入內容');
+						return ;
+					}
+				addElement(div , value);
+				if (div.className == 'is-hidden') {
+					folderOpener(folder = folder.className == 'listImg' ? folder : folder.previousElementSibling);
+					listHidden(div);
+				}
+				addBlock.className = 'addElement is-hidden';	
+			});
+			button[3].addEventListener('click' , ()=>{
+				addBlock.className = 'addElement is-hidden';
+			});
+			button[4].addEventListener('click', ()=>{
+				var div = folder.parentElement;
+				deleteElements(div);
+				addBlock.className = 'addElement is-hidden';
 			});
 		};
 	}

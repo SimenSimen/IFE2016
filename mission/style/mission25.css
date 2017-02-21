@@ -1,4 +1,4 @@
-.main , .btnList{
+.main , .btnList {
 	margin-left: 45%;
 	border-radius: 5px;
 	border : 5px solid #EEEEEE;
@@ -14,6 +14,8 @@
 	padding-left: 20px;
 }
 .listImg{
+	vertical-align : middle;
+	margin: auto;
 	cursor: pointer;
 	height: 15px;
 	width: 19px;
@@ -29,4 +31,19 @@
 	cursor: pointer;
 	color : #7B7B7B;
 	font-size: 14px;      
+}
+.addElement{
+	position: absolute;
+	border : 5px solid #EEEEEE;
+	padding: 10px;
+	border-radius: 5px;
+}
+.addElement button , .addElement input{
+	display: block;
+	margin: 20px;
+}
+#addBlockP{
+	margin: 0;
+	font-size: 25px;
+	color: red;
 }
