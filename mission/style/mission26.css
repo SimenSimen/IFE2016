@@ -1,4 +1,24 @@
+body {
+	background-color: #383838;
+}
+.container{
+	display: flex;
+	margin-left: 15%;
+}
+.console{
+	width: 200px;
+	background-color: white;
+	margin-right: 5px;
+	border: 5px solid #A3A3A3;
+}
+.play{
+	height: 200px;
+	flex: 1;
+	background-color: white;
+	border: 5px solid #A3A3A3;
+}
 canvas {
-
-	border: 1px solid black;
+	flex: 1;
+	border: 5px solid #A3A3A3;
+	background: #fff;
 }
