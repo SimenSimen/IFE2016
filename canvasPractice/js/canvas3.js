@@ -45,14 +45,11 @@
 		}
 		var lau = new Launcher();
 		var draw = setInterval(()=>{
-			ctx.save();
 			ctx.clearRect(0,0,cW,cH);
 			//draw
 			lau.rander();
 			randerEnemies();
 			//end
-			ctx.restore();
-
 			if(enemies.length ==0){
 				ctx.fillStyle ='#FC0';
 				ctx.font = 'italic bold 36px Arail , sans-serif';
