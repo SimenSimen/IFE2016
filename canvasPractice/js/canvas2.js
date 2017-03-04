@@ -7,12 +7,11 @@ function initCanvas () {
 
 	function RectObj (x,y,w,h){
 		this.x = x , this.y = y , this.w = w ,this.h = h;
-	};
-	RectObj.prototype.rander = (ctx , rx , ry , rw , rh , clr) => {
+		this.rander = (ctx , clr) => {
 		ctx.fillStyle = clr;
-		ctx.fillRect(rx, ry, rw, rh);
+		ctx.fillRect(this.x, this.y, this.w, this.h);
+		};
 	};
-
 	function background () {
 		this.x = 0 , this.y = 0;
 		this.rander = () => {
@@ -21,23 +20,35 @@ function initCanvas () {
 				this.x = 0;
 		};
 	}
-	var rect1 = new RectObj(0,0,50,50);
-	var rect2 = new RectObj(0,20,50,50);
-	var background = new background(); 
+	var rect = new RectObj(10,20,50,50);
+	var background = new background();
 
 
 	function animate (argument) {
-		ctx.save();
+		//ctx.save();
 		ctx.clearRect(0,0,cW,cH);
 		background.rander();
-		rect1.rander(ctx , rect1.x , rect1.y ,rect1.w , rect1.h , 'red');
-		rect2.rander(ctx , rect2.x , rect2.y ,rect2.w , rect2.h , 'blue');
+		rect.rander(ctx,'blue');
 		ctx.restore();
-		rect1.x++;
-		rect2.y++;
 
 	}	
 	var animateInterval = setInterval(animate, 30);
+	document.addEventListener('keydown', (event)=>{
+		switch (event.key) {
+			case 'w':
+				rect.y -= 10;			
+				break;
+			case 'a':
+				rect.x -= 10;			
+				break;	
+			case 's':
+				rect.y += 10;				
+				break;
+			case 'd':
+				rect.x += 10;
+				break;
+		}
+	});
 }
 
 window.addEventListener('load', () => {

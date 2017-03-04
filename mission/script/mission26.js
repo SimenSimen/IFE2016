@@ -1,31 +1,53 @@
-function initCanvas () {
-	var ctx = document.getElementById('canvas').getContext('2d');
-	var cW = ctx.canvas.width , cH = ctx.canvas.height;
-	var x = 0 , y = 0;
 
-	function RectObj (x,y,w,h){
-		this.x = x , this.y = y , this.w = w ,this.h = h;
-	};
-	RectObj.prototype.rander = (ctx , rx , ry , rw , rh , clr) => {
-		ctx.fillStyle = clr;
-		ctx.fillRect(rx, ry, rw, rh);
-	};
-	var rect1 = new RectObj(0,0,50,50);
-	var rect2 = new RectObj(0,20,50,50);
+(()=>{
+	function initCanvas () {
+		var ctx = document.getElementById('canvas').getContext('2d');
+		var cW = ctx.canvas.width , cH = ctx.canvas.height;
+		var bg = new Image();
+		var bgY = 0;
+		bg.src = '../img/galaxy.jpg'
+		function background () {
+			ctx.drawImage(bg , 0 ,bgY);
+			if (background.movement == 'up') {
+				bgY -=0.4;
+				if(bgY < -200)
+					background.movement = 'down';
+			}
+			else {
+				bgY +=0.4;
+				if(bgY > 0)
+					background.movement = 'up';
+			}
+		}
+		function path (r) {
+			ctx.save();
+			ctx.beginPath();
+			ctx.strokeStyle = "#FFFF00";
+			ctx.arc(cW/2 , cH/2 , r , 0,Math.PI*2);
+			ctx.stroke();
+			ctx.restore();
+		}
+		function Boat (id) {
+			this.x = cW , this.y = cH ,this.command = 'stop' , this.fuel = 100 , this.boat = new Image() , this.id = id;
+			this.boat.src = '../img/boat26.bmp';
+			this.rander = ()=>{
 
-	function animate (argument) {
-		ctx.save();
-		ctx.clearRect(0,0,cW,cH);
-		rect1.rander(ctx , rect1.x , rect1.y ,rect1.w , rect1.h , 'red');
-		rect2.rander(ctx , rect2.x , rect2.y ,rect2.w , rect2.h , 'blue');
-		ctx.restore();
-		rect1.x++;
-		rect2.y++;
-
-	}	
-	var animateInterval = setInterval(animate, 30);
-}
-
-window.addEventListener('load', () => {
-	initCanvas();
-});
+			};
+		}
+		var draw = ()=>{
+			ctx.save();
+			ctx.clearRect(0,0,cW,cH);
+			//draw here
+			background();
+			path(100);
+			path(200);
+			path(300);
+			//end
+			ctx.restore();
+		};
+		var animate = setInterval(draw , 30);
+	}
+	window.addEventListener('load', ()=>{
+		initCanvas();
+	});
+})();
