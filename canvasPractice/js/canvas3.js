@@ -28,8 +28,11 @@
 					ctx.fillStyle = 'red';
 					ctx.fillRect(this.missle[i].x , this.missle[i].y-=10 , this.missle[i].w , this.missle[i].h);
 					this.collision(this.missle[i] ,i);
-					if(this.missle[i].y <= 0)
+					if (this.missle[i]) {
+						if(this.missle[i].y <= 0)
 						this.missle.splice(i,1);
+					}
+					
 				}
 			}
 			this.collision = (m , index)=>{
