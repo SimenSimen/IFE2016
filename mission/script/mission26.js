@@ -22,7 +22,7 @@
 					},this.teleTime);
 				}
 				else{
-					this.consoleMessage('send fail , try again');
+					this.consoleMessage('send fail , try again later.');
 				}
 			};
 			this.send.stop = (boat)=>{
@@ -58,10 +58,32 @@
 				}	
 			};
 			this.send.addBoats = ()=>{
-
+				id = prompt('Please enter the Boat\'s id :')
+				if (id > 4 || id < 0 || id.match(/^[^0-9]+/)) {
+					this.consoleMessage('Error');
+					return;
+				}
+				this.consoleMessage('Your input id : ' + id);
+				if (this.loseRate()) {
+					this.consoleMessage('send success , Boat ' + id + ' will go there after 1s. ');
+					setTimeout(()=>{
+						for (var i = 0; i < boatQueue.length; i++) {
+					if (boatQueue[i].id == id){
+						boats.push(boatQueue[i]);
+						boatQueue[i].addBtns();
+					}
+				}
+				if (boats.length == 4 ) {
+					add.disabled = true;
+				}
+					},this.teleTime);
+				}
+				else {
+					this.consoleMessage('send fail , try again later.');
+				}
 			};
 			this.loseRate = ()=>{
-				return Math.random() > 0.3;
+				return Math.random() > 0.3; 
 			};
 			this.consoleMessage = (text)=>{
 				var p = document.createElement('p');
@@ -73,7 +95,7 @@
 		function Boat (id,r,pathColor) {
 			this.id = id, this.image = new Image() , this.command = 'stop' , this.fuel = 100 ,this.p = 0;
 			this.path = {x : cW/2,y : cH/2,r : r ,clr : pathColor};
-			this.image.src = '../img/boat26.jpg';
+			this.image.src = '../img/boat26.bmp';
 			this.addBtns = ()=>{
 				var button = [];
 				var div = document.createElement('div');
@@ -109,6 +131,8 @@
 					this.fuel -= 0.5;
 					if (this.fuel <=0) {
 						this.command = 'stop';
+						mediator.consoleMessage('Boat ' + this.id +' has run out of fuel ...')
+						mediator.consoleMessage('Fueling Boat ' + this.id + ' ...');
 					}
 				}
 				ctx.fillStyle = '#'+ (54+this.fuel*2).toString(16).toUpperCase() +'0000';
@@ -161,7 +185,10 @@
 			boat.addBtns();
 			boats.push(boat);
 		}
-		var animate = setInterval(draw , 30);	
+		var animate = setInterval(draw , 30);
+		add.addEventListener('click' , ()=>{
+			mediator.send.addBoats();
+		});
 	}
 	window.addEventListener('load', ()=>{	
 		initCanvas();
