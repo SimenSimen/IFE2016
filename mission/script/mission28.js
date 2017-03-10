@@ -7,6 +7,7 @@
 		var new_boat = document.getElementById('new_boat');
 		var energySeleted = document.getElementsByClassName('energySystem');
 		var powerSeleted = document.getElementsByClassName('powerSystem');
+		var table = document.getElementById('table');
 		var earth = new Image();
 		earth.src = '../img/earth27.gif';
 		var boatNumber = 1;
@@ -99,6 +100,23 @@
 					BUS.send(cmd);
 				});
 			},
+			addState : (boat)=>{
+				var tdArr = [];
+				var tr = document.createElement('tr');
+				for (var i = 0; i < 4 ; i++) {
+					var td = document.createElement('td');
+					tdArr.push(td);
+					tr.appendChild(td);
+					table.appendChild(tr);
+				}
+				tdArr[0].innerHTML = boat.id;
+				tdArr[1].innerHTML = boat.system.pSystem;
+				tdArr[2].innerHTML = boat.system.eSystem;
+				boat.tdArr = tdArr [3];
+			},
+			showState : (boat)=>{
+				boat.tdArr.innerHTML = Math.floor(boat.fuel/50 *100) + '%';
+			},
 			consoleLog : (text) => {
 				var p = document.createElement('p');
 				p.className = 'consoletext';
@@ -106,9 +124,10 @@
 				con.insertBefore( p ,  con.children[1]);
 			}
 		}
-		function Boat (id , speed , fuelRate) {
+		function Boat (id , speed , fuelRate , pSystem , eSystem) {
 			this.id = id , this.image = new Image() , this.command = 'stop' , this.fuel = 50 , this.r = 0 ;
 			this.speed = speed , this.fuelRate = fuelRate ;
+			this.system = {pSystem : pSystem , eSystem : eSystem};
 			this.path = {x : cW/2,y : cH/2,r : id*80 ,clr : '#787878'};
 			this.image.src = '../img/boat27.png';
 			this.adpater = (command) => {
@@ -168,10 +187,10 @@
 					this.fuel += parseInt(this.fuelRate) /10;
 				}
 				if (this.command == 'move') {
-					this.fuel -= speed * 20;
-					if (this.fuel <= 0) {
-						this.stop();		
-					}
+					if (this.fuel > 0) 
+						this.fuel -= this.speed * 20;			
+					else 
+						this.stop();					
 				}
 				ctx.fillStyle ='red';
 				ctx.fillRect(this.path.r - 25, -this.image.height/2 , this.fuel ,3);
@@ -186,20 +205,23 @@
 			for (var i = 0; i < powerSeleted.length; i++) {
 					if (powerSeleted[i].checked) {
 						var speed = powerSeleted[i].value;
+						var pSystem = powerSeleted[i].nextElementSibling.innerHTML;
 					}
 				}
 			for (var i = 0; i < energySeleted.length; i++) {
 					if (energySeleted[i].checked) {
 						var energy = energySeleted[i].value;
+						var eSystem = energySeleted[i].nextElementSibling.innerHTML;
 					}
 				}
-			return {speed : speed , energy : energy};
+			return {speed : speed , energy : energy , pSystem : pSystem , eSystem : eSystem};
 		}
 		function draw () {
 			ctx.clearRect(0,0,cW,cH);
 			ctx.drawImage(earth , cW/2-earth.width/2 , cH/2-earth.height/2);
 			for (var i = 0; i < boats.length; i++) {
 				boats[i].randerPath();
+				commander.showState(boats[i]);
 			}
 		}
 		//初始化
@@ -207,8 +229,11 @@
 			if (boats.length + boatsQueue.length != 4) {
 				var speed = checkSelect().speed ;
 				var energy = checkSelect().energy ;
-				var boat = new Boat(boatNumber , speed , energy);
-				commander.addBtns(boat)
+				var pSystem = checkSelect().pSystem ;
+				var eSystem = checkSelect().eSystem ; 
+				var boat = new Boat(boatNumber , speed , energy , pSystem , eSystem);
+				commander.addBtns(boat);
+				commander.addState(boat);
 				boats.push(boat);
 				boatNumber ++;
 				commander.consoleLog('A new boat has been created .');
@@ -217,8 +242,13 @@
 				if (boatsQueue[0]) {
 					var speed = checkSelect().speed ;
 					var energy = checkSelect().energy ;
+					var pSystem = checkSelect().pSystem ;
+					var eSystem = checkSelect().eSystem ;
+					boatsQueue[0].system.pSystem = pSystem;
+					boatsQueue[0].system.eSystem = eSystem;
 					boatsQueue[0].speed = speed;
 					boatsQueue[0].fuelRate = energy;
+					boatsQueue[0].fuel = 50;
 					boats.push(boatsQueue[0]);
 					commander.addBtns(boatsQueue[0]);
 					boatsQueue.splice( 0, 1);

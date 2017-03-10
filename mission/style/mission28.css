@@ -33,3 +33,17 @@
 	float: left;
 	margin-left: 5px;
 }
+.state {
+	margin-left: 5%;
+	font-size: 15px;
+}
+#table {
+	padding: 10px;
+}
+#table th {
+	border: 1px solid #123456;
+}
+#table td {
+	text-align:center; 
+    vertical-align:middle;
+}

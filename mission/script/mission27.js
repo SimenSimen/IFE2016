@@ -169,7 +169,7 @@
 				}
 				if (this.command == 'move') {
 					if (this.fuel > 0) 
-						this.fuel -= speed * 20;			
+						this.fuel -= this.speed * 20;			
 					else 
 						this.stop();					
 				}
