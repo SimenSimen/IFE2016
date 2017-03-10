@@ -68,14 +68,17 @@
 					this.consoleMessage('send success , Boat ' + id + ' will go there after 1s. ');
 					setTimeout(()=>{
 						for (var i = 0; i < boatQueue.length; i++) {
-					if (boatQueue[i].id == id){
-						boats.push(boatQueue[i]);
-						boatQueue[i].addBtns();
-					}
-				}
-				if (boats.length == 4 ) {
-					add.disabled = true;
-				}
+							if (boatQueue[i].id == id){
+								boatQueue[i].addBtns();
+								boatQueue[i].p = 0;
+								boatQueue[i].command = 'stop';
+								boats.push(boatQueue[i]);
+								boatQueue.splice( i , 1);
+							}
+						}
+						if (boats.length == 4 ) {
+							add.disabled = true;
+						}
 					},this.teleTime);
 				}
 				else {

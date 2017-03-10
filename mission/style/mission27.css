@@ -1,0 +1,35 @@
+
+.wrapper {
+	margin-left: 5%;
+	display: flex; 
+	width: 60%;
+}
+.space {
+	width: 700px;
+	border : 1px solid #383838;
+}
+.console {
+	border : 1px solid #383838;
+	height: 300px;
+	width: 300px;
+	overflow: auto;	
+	font-size: 15px;
+	margin-top: 10px;
+}
+.consoletext {
+	font-size: 15px;
+	color: #380380;
+}
+.create {
+	margin-left: 10px;
+	font-size: 9px;
+	flex: 1;
+}
+.control {
+	float: left;
+	display: block;
+}
+.buttonGroup {
+	float: left;
+	margin-left: 5px;
+}
