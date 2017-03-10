@@ -3,10 +3,43 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
-	<link rel="stylesheet" href="../style/mission27.css">
-	<script src = "../script/mission27.js"></script>
+	<link rel="stylesheet" href="../style/mission28.css">
+	<script src = "../script/mission28.js"></script>
 </head>
 <body>
-	
+	<div class="wrapper">
+		<div class="space">
+			<canvas id="canvas" width="700" height="700"></canvas>
+		</div>
+		<div class="create">
+			<div class="power">
+				<p>請選擇動力系統 :</p>
+				<input class="powerSystem" type="radio" checked name = 'powerSystem' value = "0.0125">
+				<span> 前進號 (速度最慢 , 能源消耗最少)</span><br>
+				<input class="powerSystem" type="radio" name = 'powerSystem' value = "0.025">
+				<span> 衝刺號 (速度適中 , 能源消耗中等)</span><br>
+				<input class="powerSystem" type="radio" name = 'powerSystem' value = "0.05">
+				<span> 王冠號 (速度快 , 能源消耗快)</span><br>
+				<input class="powerSystem" type="radio" name = 'powerSystem' value = "0.1">
+				<span> 禿子號 (速度最快 , 能源消耗最快)</span>
+			</div>
+			<div class="energy">
+				<p>請選擇能源補充系統 :</p>
+				<input class ="energySystem" type="radio" checked name = 'energySystem' value = "1">
+				<span> 持久型 (能源補充速率 中等)</span><br>
+				<input class ="energySystem" type="radio" name = 'energySystem' value = "2">
+				<span> 強力型 (能源補充速率 快)</span><br>
+				<input class ="energySystem" type="radio" name = 'energySystem' value = "20">
+				<span> 永久型 (能源補充速率 大於 消耗)</span>
+				<br>
+			</div>
+			<button id ="new_boat">建造新船</button>
+			<div class="console">
+				<p>Console</p>
+			</div>
+			<div class="control"></div>
+		</div>
+
+	</div>
 </body>
 </html>

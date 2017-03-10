@@ -168,10 +168,10 @@
 					this.fuel += parseInt(this.fuelRate) /10;
 				}
 				if (this.command == 'move') {
-					this.fuel -= speed * 20;
-					if (this.fuel <= 0) {
-						this.stop();		
-					}
+					if (this.fuel > 0) 
+						this.fuel -= speed * 20;			
+					else 
+						this.stop();					
 				}
 				ctx.fillStyle ='red';
 				ctx.fillRect(this.path.r - 25, -this.image.height/2 , this.fuel ,3);
@@ -219,6 +219,7 @@
 					var energy = checkSelect().energy ;
 					boatsQueue[0].speed = speed;
 					boatsQueue[0].fuelRate = energy;
+					boatsQueue[0].fuel = 50;
 					boats.push(boatsQueue[0]);
 					commander.addBtns(boatsQueue[0]);
 					boatsQueue.splice( 0, 1);
