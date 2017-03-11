@@ -1,0 +1,14 @@
+input {
+	margin-left: 15px;
+}
+label {
+	float: left;
+	text-align: right; 
+	width: 20%;
+}
+p{
+	margin-left:20%; 
+}
+button {
+	margin-left: 27%;
+}
