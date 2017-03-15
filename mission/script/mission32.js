@@ -37,7 +37,7 @@
 			}
 		}
 		function necessaryValidator (value) {
-			if (!value) {
+			if (value != '') {
 				return {result : true , text :''};
 			}
 			else {
@@ -45,7 +45,7 @@
 			} 
 		}
 		function lengthValidator (min , max , value) {
-			if ( min <= value && max >= value) {
+			if ( min <= value.length && max >= value.length) {
 				return {result : true , text :''};
 			}
 			else {
@@ -61,7 +61,7 @@
 			} 
 		}
 		function validatorEffect ( tag , p , text ,con) {
-			if(!con)
+			if(con == undefined)
 				con = true;
 			if (con) {
 				tag.style.border = '1px solid lightgreen';
@@ -74,8 +74,8 @@
 		}
 		function tagValidator (data , tag) {
 			var p = document.createElement('p');
-			var min = data.tagName == 'INPUT' ? data.limit[0] : data.limit[2];
-			var max = data.tagName == 'INPUT' ? data.limit[1] : data.limit[3];
+			var min = data.tagName == 'input' ? data.limit[0] : data.limit[2];
+			var max = data.tagName == 'input' ? data.limit[1] : data.limit[3];
 			tag.parentElement.appendChild(p);
 			if (data.sameLimit) {
 				tag.addEventListener('blur' , ()=>{
@@ -195,6 +195,7 @@
 			var data ; 
 			this.idNumber = inputId;
 			this.valid = false;
+			this.limit = [];
 			switch (typeState) {
 				case 0:
 					data = elements.input_Data.textTypeData;
@@ -232,7 +233,6 @@
 						this.necessary = data[i].value;
 						break;
 					case 'number':
-						this.limit = [];
 						this.limit.push(data[i].value);
 						break;	
 					case 'checkbox':
@@ -246,7 +246,7 @@
 			inputId++;
 		}
 		function randerTag () {
-			var newElementData = new InputData();
+			var newElementData = new InputData();;
 			var tag = createFormElements(newElementData , elements.formDemo);
 			formDataQueue.push(newElementData);
 			formElementQueue.push(tag);
