@@ -1,0 +1,22 @@
+.hidden{
+	display: none;
+}
+.wrapper{
+	display: flex;
+}
+#formDemoBox{
+	margin-top: 20px;
+	flex: 1;
+}
+.categoryWrapper{
+	width: 350px;
+}
+.categoryWrapper fieldset{
+	margin-top: 20px;
+}
+textarea {
+	resize: none;
+}
+.form{
+	margin-top: 50px;
+}

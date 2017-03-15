@@ -3,10 +3,96 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
-	<link rel="stylesheet" href="../style/mission27.css">
-	<script src = "../script/mission27.js"></script>
+	<link rel="stylesheet" href="../style/mission32.css">
+	<script src = "../script/mission32.js"></script>
 </head>
 <body>
-	
+	<div class="wrapper">
+		<div class="categoryWrapper">
+			<div class="category">
+				<fieldset>
+					<legend>表單種類</legend>
+					<label for="">輸入框</label>
+					<input class="typeSelect" type="radio" name = "category" checked><br>
+					<label for="">文本輸入框</label>
+					<input class="typeSelect" type="radio" name = "category"><br>
+					<label for="">單選按鈕</label>
+					<input class="typeSelect" type="radio" name = "category"><br>
+					<label for="">複選按鈕</label>
+					<input class="typeSelect" type="radio" name = "category"><br>
+					<label for="">下拉選單</label>
+					<input class="typeSelect" type="radio" name = "category">
+				</fieldset>
+			</div>
+			<div class="tagMaker">
+				<div id="textType">
+					<fieldset>
+						<legend>基本配置</legend>
+						<label for="">名稱 : </label><input class="textTypeData" type="text"><br>
+						<label for="">必填 :</label><input class="textTypeData" name ="necessary" type="radio" checked value = 'true'>
+						<label for="">選填 : </label><input class="textTypeData" name ="necessary" type="radio" value = 'false'><br>
+						<label for="">與前項(須為輸入框)一致 : </label><input type="checkbox" class="textTypeData" >
+					</fieldset>	
+					<fieldset>
+						<legend>字數限制</legend>
+						<label for="">請輸入最小限制字數 : </label><input type="number" class="textTypeData" min = "1" max="10"><br>
+						<label for="">請輸入最大限制字數 : </label><input type="number" class="textTypeData" min = "16" max="50">
+					</fieldset>			
+				</div>
+				<div id="textAreaType" class="hidden" >
+					<fieldset>
+						<legend>基本配置</legend>
+						<label for="">敘述 : </label><input class="textAreaTypeData" type="text"><br>
+						<label for="">必填 :</label><input class="textAreaTypeData" name ="necessary" type="radio" checked value = 'true'>
+						<label for="">選填 : </label><input class="textAreaTypeData" name ="necessary" type="radio" value = 'false'><br>
+						<label for="">區域大小 : </label><br>
+						<label for="">寬 : </label></label><input type="number" class="textAreaTypeData" min = "10" max="30">
+						<label for="">高 : </label></label><input type="number" class="textAreaTypeData" min = "2" max="10">
+					</fieldset>
+					<fieldset>
+						<legend>字數限制</legend>
+						<label for="">請輸入最小限制字數 : </label><input type="number" class="textAreaTypeData" min = "10" max="20"><br>
+						<label for="">請輸入最大限制字數 : </label><input type="number" class="textAreaTypeData" min = "30" max="1000" setp ="10">
+					</fieldset>	
+				</div>
+				<div id="radioType" class="hidden">
+					<fieldset>
+						<legend>基本配置</legend>
+						<label for="">名稱 : </label><input class="radioTypeData" type="text"><br>
+					</fieldset>
+					<fieldset>
+						<legend>選項內容</legend>
+						<textarea class="radioTypeData" cols="30" rows="10" placeholder="請以符號或空格隔開"></textarea>
+					</fieldset>
+				</div>
+				<div id="checkboxType" class="hidden">
+					<fieldset>
+						<legend>基本配置</legend>
+						<label for="">名稱 : </label><input class="checkboxTypeData" type="text"><br>
+					</fieldset>
+					<fieldset>
+						<legend>選項內容</legend>
+						<textarea class="checkboxTypeData" cols="30" rows="10" placeholder="請以符號或空格隔開"></textarea>
+					</fieldset>
+				</div>
+				<div id="selectType" class="hidden">
+					<fieldset>
+						<legend>基本配置</legend>
+						<label for="">名稱 : </label><input class="selectTypeData" type="text"><br>
+					</fieldset>
+					<fieldset>
+						<legend>選項內容</legend>
+						<textarea class="selectTypeData" cols="30" rows="10" placeholder="請以符號或空格隔開"></textarea>
+					</fieldset>
+				</div>
+			</div>
+			<button class="addBtn"> 新增元件 </button>
+			<button class="addBtn"> 新增表單 </button>
+		</div>
+		<fieldset id = formDemoBox >
+			<legend>Demo</legend>
+			<div id = formDemo ></div>
+		</fieldset>
+	</div>
 </body>
 </html>

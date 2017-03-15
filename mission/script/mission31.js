@@ -28,7 +28,6 @@
 						page.state = 1;
 						break;
 				}
-
 			}
 		}
 		
@@ -42,6 +41,7 @@
 	}
 	function initSchool () {
 		var select1 = document.getElementById('select');
+		var ori = document.getElementById('select2');
 		var placeSchool = {
 			taichung : ['潭子高中' , '大里高中' ,'豐原高中' ,'后里高中' ,'神岡高中' , '石岡高中'],
 			tainan : ['台南高中' , '玉井高中' ,'南台高中' ,'大南台高中'],
@@ -55,18 +55,13 @@
 				return;
 			}
 			else{
-				var ori = document.getElementById('select2');
-				var td = ori.parentNode ;
-				ori.parentNode.removeChild(ori);
-				var newOne = document.createElement('select');
-				newOne.id = 'select2';
+				ori.innerHTML = '';
 				for (var i = 0; i < placeSchool[place.value].length; i++) {
 					var option = document.createElement('option');
 					option.setAttribute('value' , i+1 );
 					option.innerHTML = placeSchool[place.value][i];
-					newOne.appendChild(option);
+					ori.appendChild(option);
 				}
-				td.appendChild(newOne);
 				placeSchool.state = place.value;
 			}	
 		}
