@@ -28,9 +28,9 @@
 				<div id="textType">
 					<fieldset>
 						<legend>基本配置</legend>
-						<label for="">名稱 : </label><input class="textTypeData" type="text"><br>
-						<label for="">必填 :</label><input class="textTypeData" name ="necessary" type="radio"  value = "true" checked>
-						<label for="">選填 : </label><input class="textTypeData" name ="necessary" type="radio" value = "false"><br>
+						<label for="">名稱 : </label><input class="textTypeData" type="text" ><br>
+						<label for="">必填 :</label><input class="textTypeData" name ="necessary1" type="radio"  value = "true" checked>
+						<label for="">選填 : </label><input class="textTypeData" name ="necessary1" type="radio" value = "false"><br>
 						<label for="">與前項(須為輸入框)一致 : </label><input type="checkbox" class="textTypeData" >
 					</fieldset>	
 					<fieldset>
@@ -52,7 +52,7 @@
 					<fieldset>
 						<legend>字數限制</legend>
 						<label for="">請輸入最小限制字數 : </label><input type="number" class="textAreaTypeData" min = "10" max="20"><br>
-						<label for="">請輸入最大限制字數 : </label><input type="number" class="textAreaTypeData" min = "30" max="1000" setp ="10">
+						<label for="">請輸入最大限制字數 : </label><input type="number" class="textAreaTypeData" min = "30" max="1000" step ="10">
 					</fieldset>	
 				</div>
 				<div id="radioType" class="hidden">
@@ -88,10 +88,19 @@
 			</div>
 			<button class="addBtn"> 新增元件 </button>
 			<button class="addBtn"> 新增表單 </button>
+			<label for="">選擇插入表單 : </label>
+			<select id = 'formSelector' name="" id="">
+				<option value="">1</option>
+				<option value="">2</option>
+				<option value="">3</option>
+				<option value="">4</option>
+			</select>
 		</div>
 		<fieldset id = formDemoBox >
 			<legend>Demo</legend>
-			<div id = formDemo ></div>
+			<fieldset id = formDemo1 class="form">
+				<legend>表單 1</legend>
+			</fieldset>
 		</fieldset>
 	</div>
 </body>
