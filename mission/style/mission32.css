@@ -15,6 +15,7 @@ label{
 }
 .wrapper fieldset {
   border: 3px solid #4869f0;
+  border-radius: 20px;
 }
 
 .wrapper fieldset legend {
@@ -88,11 +89,101 @@ textarea {
 	font-family:comic sans, comic sans ms, cursive, verdana, arial, sans-serif;
 }
 #formDemo2 input {
-
+	border-color:#cccccc; 
+	font-size:10px; 
+	padding:6px; 
+	text-align:center; 
+	border-radius:50px;
+	border-style:inset;
+	border-width:11px; 
+	color:#bfaebf; 
+	font-family:fantasy; font-style:italic; 
 }
 #formDemo3 input {
-
+	padding:3px;
+	font-size:16px; 
+	border-width:4px; 
+	border-radius:0px; 
+	border-style:ridge; 
+	text-align:center;
+	border-color:#b043b0;
+	color:#a16da1;
+	background-color:#ffffff;
+	box-shadow:inset 0px 0px 7px 0px rgba(204,20,204,.75);
+	font-family:monospace;
+	font-weight:bold; 
 }
 #formDemo4 input {
+	border-color:#cccccc;
+	font-size:10px;
+	text-align:center;
+	padding:8px; border-radius:50px;
+	background-color:#d7e8f5;
+	color:#719bc7;
+	box-shadow: 4px 3px 9px 0px rgba(42,42,42,.75);
+	font-family:serif;
+	font-weight:bold; 
+}
+#formDemo1 , #formDemo2 , #formDemo3,#formDemo4{
+	position: relative;
+}  
+::-webkit-scrollbar {
+  width: 13px;
+  height: 13px;
+}
+::-webkit-scrollbar-button {
+  width: 89px;
+  height: 89px;
+}
+::-webkit-scrollbar-thumb {
+  background: #c9d8fa;
+  border-radius: 22px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0e3f89;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #2261f2;
+}
+::-webkit-scrollbar-track {
+  background: #0588c7; 
+  border-radius: 23px;
+}
+::-webkit-scrollbar-track:hover {
+  background: #666666;
+}
+::-webkit-scrollbar-track:active {
+  background: #ffffff;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+.checkBtn{
+	background: #dddde0;
+	background-image: -webkit-linear-gradient(top, #dddde0, #5b5d5e);
+	background-image: -moz-linear-gradient(top, #dddde0, #5b5d5e);
+	background-image: -ms-linear-gradient(top, #dddde0, #5b5d5e);
+	background-image: -o-linear-gradient(top, #dddde0, #5b5d5e);
+	background-image: linear-gradient(to bottom, #dddde0, #5b5d5e);
+	-webkit-border-radius: 14;
+	-moz-border-radius: 14;
+	border-radius: 14px;
+	font-family: Georgia;
+	color: #ffffff;
+	font-size: 16px;
+	padding: 10px 20px 10px 20px;
+	text-decoration: none;
+	position: absolute;
+	top: 80% ;
+	left: 80% ;
+}
 
+.checkBtn:hover {
+	background: #888c8f;
+	background-image: -webkit-linear-gradient(top, #888c8f, #4e4f4f);
+	background-image: -moz-linear-gradient(top, #888c8f, #4e4f4f);
+	background-image: -ms-linear-gradient(top, #888c8f, #4e4f4f);
+	background-image: -o-linear-gradient(top, #888c8f, #4e4f4f);
+	background-image: linear-gradient(to bottom, #888c8f, #4e4f4f);
+	text-decoration: none;
 }

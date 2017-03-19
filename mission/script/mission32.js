@@ -20,12 +20,12 @@
 				checkboxTypeData : document.getElementsByClassName('checkboxTypeData'),
 				selectTypeData : document.getElementsByClassName('selectTypeData')
 			},
-			addBtn : document.getElementsByClassName('addBtn')
+			addBtn : document.getElementsByClassName('addBtn'),
+			formData : { form1 : [] },
+			formElement : {form1 : []},
+			inputId :　{form1 : 0}
 		}
 		var typeState = 0;
-		var inputId = 0;
-		var formElementQueue = [];
-		var formDataQueue = [];
 		function checkType () {
 			for (var i = 0; i < elements.typeSelect.length; i++) {
 				if (elements.typeSelect[i].checked) {
@@ -94,7 +94,7 @@
 			var max = data.tagName == 'input' ? data.limit[1] : data.limit[3];
 			tag.parentElement.appendChild(p);
 			if (data.sameLimit) {
-				var preTag = formElementQueue[data.idNumber-1];
+				var preTag = elements.formElement['form'+ data.formIdNumber][data.idNumber-1];
 				tag.addEventListener('blur' , ()=>{
 					if (checkSameValidator(tag , preTag).result) {
 						data.valid = true;
@@ -199,9 +199,10 @@
 				return tag;
 			}
 		}
-		function InputData () {
+		function InputData (id , formid) {
 			var data ; 
-			this.idNumber = inputId;
+			this.idNumber = id ;
+			this.formIdNumber = formid;
 			this.valid = false;
 			this.limit = [];
 			switch (typeState) {
@@ -251,31 +252,57 @@
 					this.subElement = data[i].value.match(/[\w\u4e00-\u9fff]+/g);
 				}
 			}
-			inputId++;
 		}
-		function randerTag (form) {
+		function randerTag (form , formid) {
 			if (form == undefined) {
 				alert('尚未建造表單');
 				return;
 			}
-			var newElementData = new InputData();;
+			var newElementData = new InputData(elements.inputId['form' + formid] , formid);
 			var tag = createFormElements(newElementData , form);
-			formDataQueue.push(newElementData);
-			formElementQueue.push(tag);
+			elements.formData['form' + formid].push(newElementData);
+			elements.formElement['form' + formid].push(tag);
+			elements.inputId['form' + formid]++;
 		}
 		function createNewForm () {
 			if (elements.formDemo.length == 4 ) {
 				alert('創建數量已達上限');
 				return;
 			}
+			var number = elements.formDemo.length + 1 ;
 			var fieldset = document.createElement('fieldset');
 			var legend = document.createElement('legend') ;
-			legend.innerHTML = '表單 '  +( elements.formDemo.length + 1) ;
-			fieldset.id = 'formDemo' + ( elements.formDemo.length + 1);
+			legend.innerHTML = '表單 '  + number ;
+			fieldset.id = 'formDemo' + number;
 			fieldset.className = 'form';
 			fieldset.appendChild(legend);
 			elements.formBox.appendChild(fieldset);
-			elements.formDemo.push(fieldset);		
+			elements.formDemo.push(fieldset);
+			elements.formData['form' + number] = []
+			elements.formElement['form' + number] = [];
+			elements.inputId['form' + number] = 0;
+			createFormButton(fieldset , number);
+		}
+		function checkAllvalid (formid) {
+			var queue = elements.formData['form'+formid];
+			for (var i = 0; i < queue.length; i++) {
+				if (!queue[i].valid) {
+					alert('提交失敗，請按照格式輸入');
+					break;
+				}
+			}
+			if (i == queue.length && i !=  0) {
+				alert('提交成功');
+			}
+		}
+		function createFormButton (form , formid) {
+			var btn = document.createElement('button');
+			btn.className = 'checkBtn';
+			btn.innerHTML = '提交';
+			form.appendChild(btn);
+			btn.addEventListener('click',()=>{
+				checkAllvalid(formid);
+			});
 		}
 		function checkDatas(data) {
 			for (var i = 0; i < data.length; i++) {
@@ -288,6 +315,7 @@
 				return true;
 			}
 		}
+		createFormButton(elements.formDemo[0] , 1);
 		elements.categoryBox.addEventListener('change', checkType);
 		elements.addBtn[0].addEventListener('click', ()=>{
 			var options = elements.formSelector.options;	
@@ -300,7 +328,7 @@
 				alert('尚未完成設置');
 				return ;
 			}
-			randerTag(elements.formDemo[option-1]);
+			randerTag(elements.formDemo[option-1] , option);
 		});
 		elements.addBtn[1].addEventListener('click', createNewForm);
 
