@@ -1,0 +1,98 @@
+#table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+#table .tableCells {
+	font-family:Arial, sans-serif;
+	font-size:14px;
+	padding:20px ;
+	border-style:solid;
+	border-width:1px;
+	overflow:hidden;
+	word-break:normal;
+	position: relative;
+}
+.tableTitles{
+	padding:0 13px ;
+	font-family: fantasy;
+	text-align: center;
+}
+.wrapper {
+	margin-left: 28%;
+	margin-top: 50px;
+	display: flex;
+}
+.control {
+	margin-top: 15px;
+	margin-left: 10%;
+}
+.textBox {
+	margin-left: 25px;
+}
+#input {
+	border-color:#cccccc;
+	padding:6px;
+	font-size:19px;
+	text-align:center;
+	border-width:5px;
+	border-radius:13px;
+	border-style:double;
+	color:#858585;
+	font-family:fantasy;
+}
+#button {
+	background: #dcdfe0;
+	background-image: -webkit-linear-gradient(top, #dcdfe0, #858585);
+	background-image: -moz-linear-gradient(top, #dcdfe0, #858585);
+	background-image: -ms-linear-gradient(top, #dcdfe0, #858585);
+	background-image: -o-linear-gradient(top, #dcdfe0, #858585);
+	background-image: linear-gradient(to bottom, #dcdfe0, #858585);
+	-webkit-border-radius: 8;
+	-moz-border-radius: 8;
+	border-radius: 8px;
+	font-family: fantasy;
+	color: #5e5e5e;
+	font-size: 18px;
+	padding: 5px 20px 5px 20px;
+}
+
+#button:hover {
+	background: #fafafa;
+	background-image: -webkit-linear-gradient(top, #fafafa, #e6e6e6);
+	background-image: -moz-linear-gradient(top, #fafafa, #e6e6e6);
+	background-image: -ms-linear-gradient(top, #fafafa, #e6e6e6);
+	background-image: -o-linear-gradient(top, #fafafa, #e6e6e6);
+	background-image: linear-gradient(to bottom, #fafafa, #e6e6e6);
+}
+.littleBlock-left , .littleBlock-top , .littleBlock-right ,.littleBlock-bottom {
+	top: 0px;
+	left:0px;
+	position: absolute;
+	background-color:red; 
+
+}
+.littleBlock-left {
+	border-left: 5px solid #8600FF;
+	width: 35px;
+	height: 40px;
+}
+.littleBlock-top {
+	border-top: 5px solid #8600FF;
+	width: 40px;
+	height: 35px;
+}
+.littleBlock-right {
+	border-right: 5px solid #8600FF;
+	width: 35px;
+	height: 40px;
+}
+.littleBlock-bottom {
+	border-bottom: 5px solid #8600FF;
+	width: 40px;
+	height: 35px;
+}
+.textBox{
+	font-size: 20px;
+	font-family: fantasy;
+	display: inline-block;
+}
