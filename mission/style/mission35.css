@@ -1,0 +1,113 @@
+#table {
+	border-collapse:collapse;
+	border-spacing:0;
+}
+#table .tableCells {
+	font-family:Arial, sans-serif;
+	font-size:14px;
+	padding:20px ;
+	border-style:solid;
+	border-width:1px;
+	overflow:hidden;
+	word-break:normal;
+	position: relative;
+}
+.tableTitles{
+	padding:0 13px ;
+	font-family: fantasy;
+	text-align: center;
+}
+.wrapper {
+	margin-left: 28%;
+	margin-top: 50px;
+	display: flex;
+}
+.textBox{
+	font-size: 20px;
+	font-family: fantasy;
+	display: inline-block;
+	margin-left: 25px;
+}
+.control{
+	margin-top: 5px;
+}
+.buttonBox{
+	margin-left: 41px;
+}
+.inputBox{
+	margin:5px 0 0 41px;
+}
+#input {
+	resize: none;
+	font-size:18px;
+	color:#327535;
+	background-color:#191919;
+	font-family:cursive;
+	float: left;
+	border: none;
+	height: 220px;
+}
+#lineNumber {
+	width: 24px;
+	height: 222px;
+	background-color: #D0D0D0;
+	float: left;
+	padding-top: 2px; 
+}
+#lineNumber .numberingDiv {
+	font-size: 18px;
+	font-family: cursive;
+	text-align: center;
+}
+#button , #reset{
+	background: #dcdfe0;
+	background-image: -webkit-linear-gradient(top, #dcdfe0, #858585);
+	background-image: -moz-linear-gradient(top, #dcdfe0, #858585);
+	background-image: -ms-linear-gradient(top, #dcdfe0, #858585);
+	background-image: -o-linear-gradient(top, #dcdfe0, #858585);
+	background-image: linear-gradient(to bottom, #dcdfe0, #858585);
+	-webkit-border-radius: 8;
+	-moz-border-radius: 8;
+	border-radius: 8px;
+	font-family: fantasy;
+	color: #5e5e5e;
+	font-size: 13px;
+	padding: 1px 15px;
+
+}
+
+#button:hover , #reset:hover {
+	background: #fafafa;
+	background-image: -webkit-linear-gradient(top, #fafafa, #e6e6e6);
+	background-image: -moz-linear-gradient(top, #fafafa, #e6e6e6);
+	background-image: -ms-linear-gradient(top, #fafafa, #e6e6e6);
+	background-image: -o-linear-gradient(top, #fafafa, #e6e6e6);
+	background-image: linear-gradient(to bottom, #fafafa, #e6e6e6);
+}
+.littleBlock-left , .littleBlock-top , .littleBlock-right ,.littleBlock-bottom {
+	top: 0px;
+	left:0px;
+	position: absolute;
+	background-color:red; 
+
+}
+.littleBlock-left {
+	border-left: 5px solid #8600FF;
+	width: 35px;
+	height: 40px;
+}
+.littleBlock-top {
+	border-top: 5px solid #8600FF;
+	width: 40px;
+	height: 35px;
+}
+.littleBlock-right {
+	border-right: 5px solid #8600FF;
+	width: 35px;
+	height: 40px;
+}
+.littleBlock-bottom {
+	border-bottom: 5px solid #8600FF;
+	width: 40px;
+	height: 35px;
+}
