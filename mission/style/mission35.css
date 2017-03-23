@@ -8,7 +8,7 @@
 	padding:20px ;
 	border-style:solid;
 	border-width:1px;
-	overflow:hidden;
+	overflow:visible;
 	word-break:normal;
 	position: relative;
 }
@@ -45,14 +45,16 @@
 	font-family:cursive;
 	float: left;
 	border: none;
-	height: 220px;
+	height: 218px;
+	overflow: hidden;
 }
 #lineNumber {
 	width: 24px;
-	height: 222px;
+	height: 220px;
 	background-color: #D0D0D0;
 	float: left;
 	padding-top: 2px; 
+	overflow: hidden;
 }
 #lineNumber .numberingDiv {
 	font-size: 18px;
@@ -88,8 +90,7 @@
 	top: 0px;
 	left:0px;
 	position: absolute;
-	background-color:red; 
-
+	background-color:red;
 }
 .littleBlock-left {
 	border-left: 5px solid #8600FF;

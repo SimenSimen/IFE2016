@@ -16,7 +16,9 @@
 			status : {
 				x : 5 ,
 				y : 5 ,
-				dir : 'top'
+				dir : 'top' ,
+				pos : 0 ,
+				deg : 0 
 			}
 		}
 		for (var i = 0; i <  Math.sqrt(table.length); i++) {
@@ -40,7 +42,7 @@
 		function randerBlock (dir , pos) {
 			block.status.dir = dir;
 			block.element.className = 'littleBlock-' + block.status.dir;
-			elements.tableCells[pos.y][pos.x].appendChild(block.element);
+			moveAnimate(block.status , pos);
 			block.status.x = pos.x ;
 			block.status.y = pos.y ;
 		}
@@ -95,6 +97,30 @@
 			}
 			if(pos.x >= 0 && pos.x <= 9 && pos.y >= 0 && pos.y <= 9)
 				randerBlock(block.status.dir , pos);
+		}
+		function moveAnimate (oldPos, newPos) {
+			var dx = newPos.x - oldPos.x;
+			var dy = newPos.y - oldPos.y;
+			var id = setInterval(()=>{
+				if (dx) {
+					block.element.style.left = block.status.pos + 'px';
+					block.status.pos += dx*1.5;
+				}
+				else if(dy) {
+					block.element.style.top = block.status.pos + 'px';
+					block.status.pos += dy*1.5;
+				}
+				if (Math.abs(block.status.pos) >= 42 ) {
+					clearInterval(id);
+					block.status.pos = 0
+					block.element.style.top = block.status.pos + 'px';
+					block.element.style.left = block.status.pos + 'px';
+					elements.tableCells[newPos.y][newPos.x].appendChild(block.element);
+				}
+			}, 15);		
+		}
+		function rotateAnimate (deg) {
+			
 		}
 		function moveLeft () {
 			block.status.dir = 'left';
