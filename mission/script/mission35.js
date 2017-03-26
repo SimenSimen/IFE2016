@@ -4,11 +4,14 @@
 		var table = document.getElementsByClassName('tableCells');
 		var div = document.createElement('div');
 		div.className = 'littleBlock-top';
-		elements = {
+		var elements = {
 			tableCells : [] , 
 			button : document.getElementById('button') ,	
-			input : document.getElementById('input') , 
-			reset : document.getElementById('reset')
+			input : document.getElementById('input') ,
+			numberingDiv : ()=>{
+				return document.getElementsByClassName('numberingDiv');
+			} ,
+			redNumberingDiv : []
 		}
 		var direction = ['top' , 'right' , 'bottom' , 'left']; 
 		block = {
@@ -18,8 +21,10 @@
 				y : 5 ,
 				dir : 'top' ,
 				pos : 0 ,
-				deg : 0 
-			}
+				deg : 0 ,
+				animating : false
+			},
+			commandQueue : []
 		}
 		for (var i = 0; i <  Math.sqrt(table.length); i++) {
 			elements.tableCells[i] = [];
@@ -27,7 +32,7 @@
 				elements.tableCells[i].push(table[j]);
 			}
 		};	
-		elements.tableCells[block.status.x][block.status.y].appendChild(block.element);
+		elements.tableCells[block.status.y][block.status.x].appendChild(block.element);
 		function getDirection () {
 			for (var i = 0; i < direction.length; i++) {
 				if(direction[i] == block.status.dir)
@@ -39,165 +44,161 @@
 		function getPosition() {
 			return { x : block.status.x , y : block.status.y};
 		}
-		function randerBlock (dir , pos) {
-			block.status.dir = dir;
-			block.element.className = 'littleBlock-' + block.status.dir;
-			moveAnimate(block.status , pos);
-			block.status.x = pos.x ;
-			block.status.y = pos.y ;
+
+		function turn(clickWise , n) {
+			var old = getDirection();
+			var tar = clickWise ? old + n : old -n ;
+			if (tar >= 4)
+				tar = tar % 4;
+			else if ( tar < 0)
+				tar = 4 - (Math.abs(tar)%4 == 0 ? 4 : Math.abs(tar)%4);
+			rotateAnimate(clickWise , n , tar);
 		}
-		function turnLeft () {
-			var dir = getDirection();
-			var	newDir = dir - 1 >= 0 ? dir - 1 : 3 ;
-			randerBlock(direction[newDir] , getPosition());
-		
-		}
-		function turnRight () {
-			var dir = getDirection();
-			var	newDir = dir + 1 <= 3 ? dir + 1 : 0 ;
-			randerBlock(direction[newDir] , getPosition());
-		}
-		function turnBack () {
-			var dir = getDirection();
-			var	newDir = dir + 2 <= 3 ? dir + 2 : dir - 2 ;
-			randerBlock(direction[newDir] , getPosition());
-		}
-		function go () {
-			var  pos = {
-				x : block.status.x,
-				y : block.status.y
+		function turnTo (dir) {
+			var old = getDirection();
+			var dx = dir - old ;
+			if (dx) {
+				switch (Math.abs(dx)) {
+					case 3:
+						var cl = dx > 0 ? false : true;
+						rotateAnimate(cl , 1 , dir);
+						break;
+					case 2:
+						rotateAnimate(true , dx , dir);
+						break;
+					case 1:
+						var cl = dx > 0 ? true : false;
+						rotateAnimate(cl , 1 , dir);
+						break;
+				}
+				return true;
 			}
-			switch (block.status.dir) {
-				case 'top':
+			else{
+				return false;
+			}
+		}
+		function move (dir) {
+			var pos = getPosition();
+			switch (dir) {
+				case 0 :
 					pos.y -= 1;
-					if(pos.x >= 0 && pos.x <= 9 && pos.y >= 0 && pos.y <= 9)
-						randerBlock(block.status.dir , pos);
 					break;
-				case 'right':
+				case 1 :
 					pos.x += 1;
-					if(pos.x >= 0 && pos.x <= 9 && pos.y >= 0 && pos.y <= 9)
-						randerBlock(block.status.dir , pos);
 					break;
-				case 'bottom':
+				case 2 :
 					pos.y += 1;
-					if(pos.x >= 0 && pos.x <= 9 && pos.y >= 0 && pos.y <= 9)
-						randerBlock(block.status.dir , pos);
 					break;
-				case 'left':
+				case 3 :
 					pos.x -= 1;
-					if(pos.x >= 0 && pos.x <= 9 && pos.y >= 0 && pos.y <= 9)
-						randerBlock(block.status.dir , pos);
-					break;
+					break;			
+			}
+			if (pos.x > 9 || pos.x < 0 || pos.y > 9 || pos.y < 0) {
+				return;
+			}
+			else {
+				moveAnimaite(pos , dir);				
 			}
 		}
-		function move ( blx , bly) {
-			var  pos = {
-				x : blx,
-				y : bly
+		function moveAnimaite (pos , n) {
+			if(checkAnimating())
+				return;
+			else{
+					switch (n) {
+						case 0:
+							var c = 1;
+							break;
+						case 1:
+							var c = -1;
+							n = 3;
+							break;
+						case 2:
+							var c = -1;
+							n = 0;
+							break;
+						case 3:
+							var c = 1;
+							break;
+					}
+					var id = setInterval (()=>{
+					block.status.animating = true ;
+					block.status.pos -= 1*c ;
+					block.element.style[direction[n]] = block.status.pos + 'px';
+					if (Math.abs(block.status.pos) == 41) {
+						clearInterval(id);
+						block.status.animating = false ;
+						block.status.pos = 0;
+						block.status.x = pos.x;
+						block.status.y = pos.y;
+						block.element.style[direction[n]] ='';
+						elements.tableCells[pos.y][pos.x].appendChild(block.element);
+					}
+				} ,5);
 			}
-			if(pos.x >= 0 && pos.x <= 9 && pos.y >= 0 && pos.y <= 9)
-				randerBlock(block.status.dir , pos);
 		}
-		function moveAnimate (oldPos, newPos) {
-			var dx = newPos.x - oldPos.x;
-			var dy = newPos.y - oldPos.y;
-			var id = setInterval(()=>{
-				if (dx) {
-					block.element.style.left = block.status.pos + 'px';
-					block.status.pos += dx*1.5;
+		function rotateAnimate (clickWise , n ,tar) {
+			if(checkAnimating())
+				return;
+			else {
+				block.status.animating = true ;
+				var n = clickWise ? n : -1*n;
+				var id = setInterval(()=>{
+					block.status.deg += n*1;
+					block.element.style.transform = 'rotate(' + block.status.deg + 'deg)';
+					if (block.status.deg % (90*Math.abs(n)) == 0) {
+						clearInterval(id);
+						block.status.animating = false ;
+						block.element.style.transform = '';
+						block.status.deg = 0;
+						block.status.dir = direction[tar];
+						block.element.className = 'littleBlock-' + direction[tar];
+					}			
+				},5);
+			}
+		}
+		function checkAnimating () {
+			return block.status.animating ; 
+		}
+		function getCommandText () {
+			var commands = elements.input.value;
+			var pos = [];
+			var index = 0;
+			var enterLength = commands.match(/\n/g).length;
+			for (var i = 0; i < enterLength; i++) {
+				index = commands.indexOf('\n', i == 0 ? index : index+1);
+				pos.push(index);
+			}
+			var text = [];
+			text.push(commands.slice(0 , pos[0]));
+			for (var i = 0; i < pos.length; i++) {
+				text.push(commands.slice(pos[i]+1 , pos[i+1] ? pos[i+1] : commands.length));
+			}
+			return text;
+		}
+		function checkCommand() {
+			var commands = getCommandText();
+			for (var i = 0; i < commands.length; i++) {
+				if(!commands[i].match(/(MOV|TRA|TUN|GO) *(REG|BOT|LFT|BCK|TOP)* *[0-9]{0,1}/)) {
+					elements.numberingDiv()[i].style.backgroundColor = 'red';
+					elements.redNumberingDiv.push(elements.numberingDiv()[i]);
 				}
-				else if(dy) {
-					block.element.style.top = block.status.pos + 'px';
-					block.status.pos += dy*1.5;
+				else
+				{
+					block.commandQueue.push(commands[i]);
 				}
-				if (Math.abs(block.status.pos) >= 42 ) {
-					clearInterval(id);
-					block.status.pos = 0
-					block.element.style.top = block.status.pos + 'px';
-					block.element.style.left = block.status.pos + 'px';
-					elements.tableCells[newPos.y][newPos.x].appendChild(block.element);
-				}
-			}, 15);		
+			}
 		}
-		function rotateAnimate (deg) {
-			
-		}
-		function moveLeft () {
-			block.status.dir = 'left';
-			go();
-		}
-		function moveRight () {
-			block.status.dir = 'right';
-			go();
-		}
-		function moveTop () {
-			block.status.dir = 'top';
-			go();
-		}
-		function moveBottom () {
-			block.status.dir = 'bottom';
-			go();
-		}
-		function goLeft () {
-			move(block.status.x-1 , block.status.y);
-		}
-		function goRight () {
-			move(block.status.x+1 , block.status.y);
-		}
-		function goTop () {
-			move(block.status.x , block.status.y-1);
-		}
-		function goBottom () {
-			move(block.status.x , block.status.y+1);
+		function clearEffect(){
+			for (var i = 0; i < elements.redNumberingDiv.length; i++) {
+				elements.redNumberingDiv[i].style = '';
+			}
 		}
 		function ex () {
-			switch (elements.input.value.toUpperCase()) {
-				case 'TUN LFT':			
-					turnLeft();
-					break;
-				case 'TUN REG':
-					turnRight();
-					break;
-				case 'TUN BCK':
-					turnBack();
-					break;
-				case 'GO':
-					go();
-					break;
-				case 'MOV LFT':
-					moveLeft();
-					break;	
-				case 'MOV TOP':
-					moveTop();
-					break;	
-				case 'MOV BOT':
-					moveBottom();
-					break;
-				case 'MOV REG':
-					moveRight();
-					break;	
-				case 'TRA BOT':
-					goBottom();
-					break;	
-				case 'TRA REG':
-					goRight();
-					break;	
-				case 'TRA LFT':
-					goLeft();
-					break;	
-				case 'TRA TOP':
-					goTop();
-					break;	
-			}
+			checkCommand();
+			console.log(block.commandQueue);
 		}
 		elements.button.addEventListener('click', ex);
-		elements.input.addEventListener('keydown' , (event)=> {
-			if(event.key == 'Enter')
-				ex();
-		});
-		elements.reset.addEventListener('click', ()=>{
-			elements.input.value = '';
-		});
+		elements.input.addEventListener('change' , clearEffect);
 	}
-	window.onload = init;
+	window.addEventListener('load' , init);
 })();

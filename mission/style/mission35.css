@@ -47,6 +47,7 @@
 	border: none;
 	height: 218px;
 	overflow: hidden;
+	letter-spacing: 1px;
 }
 #lineNumber {
 	width: 24px;
@@ -56,12 +57,15 @@
 	padding-top: 2px; 
 	overflow: hidden;
 }
+.numberingDiv {
+	border-radius: 50px;
+}
 #lineNumber .numberingDiv {
 	font-size: 18px;
 	font-family: cursive;
 	text-align: center;
 }
-#button , #reset{
+#button , #reset {
 	background: #dcdfe0;
 	background-image: -webkit-linear-gradient(top, #dcdfe0, #858585);
 	background-image: -moz-linear-gradient(top, #dcdfe0, #858585);

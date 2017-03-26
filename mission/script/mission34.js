@@ -4,10 +4,10 @@
 		var table = document.getElementsByClassName('tableCells');
 		var div = document.createElement('div');
 		div.className = 'littleBlock-top';
-		elements = {
+		var elements = {
 			tableCells : [] , 
 			button : document.getElementById('button') ,	
-			input : document.getElementById('input')
+			input : document.getElementById('input') , 
 		}
 		var direction = ['top' , 'right' , 'bottom' , 'left']; 
 		block = {
@@ -15,7 +15,10 @@
 			status : {
 				x : 5 ,
 				y : 5 ,
-				dir : 'top'
+				dir : 'top' ,
+				pos : 0 ,
+				deg : 0 ,
+				animating : false
 			}
 		}
 		for (var i = 0; i <  Math.sqrt(table.length); i++) {
@@ -24,7 +27,7 @@
 				elements.tableCells[i].push(table[j]);
 			}
 		};	
-		elements.tableCells[block.status.x][block.status.y].appendChild(block.element);
+		elements.tableCells[block.status.y][block.status.x].appendChild(block.element);
 		function getDirection () {
 			for (var i = 0; i < direction.length; i++) {
 				if(direction[i] == block.status.dir)
@@ -36,138 +39,170 @@
 		function getPosition() {
 			return { x : block.status.x , y : block.status.y};
 		}
-		function randerBlock (dir , pos) {
-			block.status.dir = dir;
-			block.element.className = 'littleBlock-' + block.status.dir;
-			elements.tableCells[pos.y][pos.x].appendChild(block.element);
-			block.status.x = pos.x ;
-			block.status.y = pos.y ;
+
+		function turn(clickWise , n) {
+			var old = getDirection();
+			var tar = clickWise ? old + n : old -n ;
+			if (tar >= 4)
+				tar = tar % 4;
+			else if ( tar < 0)
+				tar = 4 - (Math.abs(tar)%4 == 0 ? 4 : Math.abs(tar)%4);
+			rotateAnimate(clickWise , n , tar);
 		}
-		function turnLeft () {
-			var dir = getDirection();
-			var	newDir = dir - 1 >= 0 ? dir - 1 : 3 ;
-			randerBlock(direction[newDir] , getPosition());
-		
-		}
-		function turnRight () {
-			var dir = getDirection();
-			var	newDir = dir + 1 <= 3 ? dir + 1 : 0 ;
-			randerBlock(direction[newDir] , getPosition());
-		}
-		function turnBack () {
-			var dir = getDirection();
-			var	newDir = dir + 2 <= 3 ? dir + 2 : dir - 2 ;
-			randerBlock(direction[newDir] , getPosition());
-		}
-		function go () {
-			var  pos = {
-				x : block.status.x,
-				y : block.status.y
+		function turnTo (dir) {
+			var old = getDirection();
+			var dx = dir - old ;
+			if (dx) {
+				switch (Math.abs(dx)) {
+					case 3:
+						var cl = dx > 0 ? false : true;
+						rotateAnimate(cl , 1 , dir);
+						break;
+					case 2:
+						rotateAnimate(true , dx , dir);
+						break;
+					case 1:
+						var cl = dx > 0 ? true : false;
+						rotateAnimate(cl , 1 , dir);
+						break;
+				}
+				return true;
 			}
-			switch (block.status.dir) {
-				case 'top':
+			else{
+				return false;
+			}
+		}
+		function move (dir) {
+			var pos = getPosition();
+			switch (dir) {
+				case 0 :
 					pos.y -= 1;
-					if(pos.x >= 0 && pos.x <= 9 && pos.y >= 0 && pos.y <= 9)
-						randerBlock(block.status.dir , pos);
 					break;
-				case 'right':
+				case 1 :
 					pos.x += 1;
-					if(pos.x >= 0 && pos.x <= 9 && pos.y >= 0 && pos.y <= 9)
-						randerBlock(block.status.dir , pos);
 					break;
-				case 'bottom':
+				case 2 :
 					pos.y += 1;
-					if(pos.x >= 0 && pos.x <= 9 && pos.y >= 0 && pos.y <= 9)
-						randerBlock(block.status.dir , pos);
 					break;
-				case 'left':
+				case 3 :
 					pos.x -= 1;
-					if(pos.x >= 0 && pos.x <= 9 && pos.y >= 0 && pos.y <= 9)
-						randerBlock(block.status.dir , pos);
-					break;
+					break;			
+			}
+			if (pos.x > 9 || pos.x < 0 || pos.y > 9 || pos.y < 0) {
+				return;
+			}
+			else {
+				moveAnimaite(pos , dir);				
 			}
 		}
-		function move ( blx , bly) {
-			var  pos = {
-				x : blx,
-				y : bly
+		function moveAnimaite (pos , n) {
+			if(checkAnimating())
+				return;
+			else{
+					switch (n) {
+						case 0:
+							var c = 1;
+							break;
+						case 1:
+							var c = -1;
+							n = 3;
+							break;
+						case 2:
+							var c = -1;
+							n = 0;
+							break;
+						case 3:
+							var c = 1;
+							break;
+					}
+					var id = setInterval (()=>{
+					block.status.animating = true ;
+					block.status.pos -= 1*c ;
+					block.element.style[direction[n]] = block.status.pos + 'px';
+					if (Math.abs(block.status.pos) == 41) {
+						clearInterval(id);
+						block.status.animating = false ;
+						block.status.pos = 0;
+						block.status.x = pos.x;
+						block.status.y = pos.y;
+						block.element.style[direction[n]] ='';
+						elements.tableCells[pos.y][pos.x].appendChild(block.element);
+					}
+				} ,5);
 			}
-			if(pos.x >= 0 && pos.x <= 9 && pos.y >= 0 && pos.y <= 9)
-				randerBlock(block.status.dir , pos);
 		}
-		function moveLeft () {
-			block.status.dir = 'left';
-			go();
+		function rotateAnimate (clickWise , n ,tar) {
+			if(checkAnimating())
+				return;
+			else {
+				block.status.animating = true ;
+				var n = clickWise ? n : -1*n;
+				var id = setInterval(()=>{
+					block.status.deg += n*1;
+					block.element.style.transform = 'rotate(' + block.status.deg + 'deg)';
+					if (block.status.deg % (90*Math.abs(n)) == 0) {
+						clearInterval(id);
+						block.status.animating = false ;
+						block.element.style.transform = '';
+						block.status.deg = 0;
+						block.status.dir = direction[tar];
+						block.element.className = 'littleBlock-' + direction[tar];
+					}			
+				},5);
+			}
 		}
-		function moveRight () {
-			block.status.dir = 'right';
-			go();
-		}
-		function moveTop () {
-			block.status.dir = 'top';
-			go();
-		}
-		function moveBottom () {
-			block.status.dir = 'bottom';
-			go();
-		}
-		function goLeft () {
-			move(block.status.x-1 , block.status.y);
-		}
-		function goRight () {
-			move(block.status.x+1 , block.status.y);
-		}
-		function goTop () {
-			move(block.status.x , block.status.y-1);
-		}
-		function goBottom () {
-			move(block.status.x , block.status.y+1);
+		function checkAnimating () {
+			return block.status.animating ; 
 		}
 		function ex () {
 			switch (elements.input.value.toUpperCase()) {
 				case 'TUN LFT':			
-					turnLeft();
+					turn(false , 1);
 					break;
 				case 'TUN REG':
-					turnRight();
+					turn(true , 1);
 					break;
 				case 'TUN BCK':
-					turnBack();
+					turn(true , 2);
 					break;
 				case 'GO':
-					go();
+					move(getDirection());
 					break;
 				case 'MOV LFT':
-					moveLeft();
+					if(turnTo(3))
+						block.status.animating = false;
+					move(3);
 					break;	
 				case 'MOV TOP':
-					moveTop();
+					if(turnTo(0))
+						block.status.animating = false;
+					move(0);
 					break;	
 				case 'MOV BOT':
-					moveBottom();
+					if(turnTo(2))
+						block.status.animating = false;
+					move(2);
 					break;
 				case 'MOV REG':
-					moveRight();
+					if(turnTo(1))
+						block.status.animating = false;
+					move(1);
 					break;	
 				case 'TRA BOT':
-					goBottom();
+					move(2);
 					break;	
 				case 'TRA REG':
-					goRight();
+					move(1);
 					break;	
 				case 'TRA LFT':
-					goLeft();
+					move(3);
 					break;	
 				case 'TRA TOP':
-					goTop();
+					move(0);
 					break;	
 			}
 		}
 		elements.button.addEventListener('click', ex);
-		elements.input.addEventListener('keydown' , (event)=> {
-			if(event.key == 'Enter')
-				ex();
-		});
 	}
-	window.onload = init;
+	window.addEventListener('load' , init);
 })();
