@@ -57,9 +57,11 @@
 			elements.input.value ='';
 			lineData.number = 0;
 			lineData.enterNumber = 0;
-			elements.div.innerHTML = '';		
+			elements.div.innerHTML = '';
+			createNumber();
 		});
 		elements.input.addEventListener('keydown' , (event)=> {
+			elements.div.scrollTop = elements.input.scrollTop ;
 			updataLine();
 			switch (event.key) {
 				case 'Enter':
@@ -69,6 +71,7 @@
 			}
 		});
 		elements.input.addEventListener('keyup' , (event)=> {
+			elements.div.scrollTop = elements.input.scrollTop ;
 			updataLine();
 		});
 	}
