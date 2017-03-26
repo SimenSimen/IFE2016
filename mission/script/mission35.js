@@ -301,7 +301,7 @@
 			block.commandQueue = [];
 		}
 		elements.button.addEventListener('click', ex);
-		elements.input.addEventListener('change' , clearEffect);
+		elements.input.addEventListener('click' , clearEffect);
 	}
 	window.addEventListener('load' , init);
 })();
