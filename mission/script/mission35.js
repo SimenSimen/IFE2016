@@ -187,8 +187,13 @@
 			var commands = getCommandText();
 			for (var i = 0; i < commands.length ; i++) {
 				if (commands[i].match(/GO *[0-9]{0,1}/)) {
-					console.log(commands[i].match(/GO *[0-9]{0,1}/));
-					block.commandQueue.push(commands[i].match(/GO *[0-9]{0,1}/)[0]);
+					var match = commands[i].match(/GO *[0-9]{0,1}/)[0];
+					if(match == commands[i])
+						block.commandQueue.push(match);
+					else {
+						elements.numberingDiv()[i].style.backgroundColor = 'red';
+						elements.redNumberingDiv.push(elements.numberingDiv()[i]);	
+					}
 				}
 				else if(!commands[i].match(/(MOV|TRA|TUN) (REG|BOT|LFT|BCK|TOP) *[0-9]{0,1}/)) {
 					elements.numberingDiv()[i].style.backgroundColor = 'red';
@@ -199,6 +204,10 @@
 					var match = commands[i].match(/(MOV|TRA|TUN) (REG|BOT|LFT|BCK|TOP) *[0-9]{0,1}/)[0];
 					if(match == commands[i])
 						block.commandQueue.push(match);
+					else {
+						elements.numberingDiv()[i].style.backgroundColor = 'red';
+						elements.redNumberingDiv.push(elements.numberingDiv()[i]);	
+					}
 				}
 			}
 		}
@@ -208,7 +217,88 @@
 			}
 		}
 		function ex () {
-
+			checkCommand();
+			var len = block.commandQueue.length;
+			for (var i = 0; i < len ; i++) {
+				var a = block.commandQueue[i].match(/[0-9]/) ? block.commandQueue[i].match(/[0-9]/)[0] : 1;
+				if (block.commandQueue[i].includes('MOV')) {
+					switch (block.commandQueue[i].slice(4 , 7)) {
+						case 'LFT':
+							for(var j = 0; j < a ;j++){
+								turnTo(3);
+								move(3);
+							}
+							break;
+						case 'REG':
+							for(var j = 0; j < a ;j++){
+								turnTo(1);
+								move(1);
+							}
+							break;
+						case 'BOT':
+							for(var j = 0; j < a ;j++){
+								turnTo(2);
+								move(2);
+							}
+							break;
+						case 'TOP':
+							for(var j = 0; j < a ;j++){
+								turnTo(0);
+								move(0);
+							}
+							break;
+					}
+				}
+				else if (block.commandQueue[i].includes('TRA')) {
+					switch (block.commandQueue[i].slice(4 , 7)) {
+						case 'LFT':
+							for(var j = 0; j < a ;j++){
+								move(3);
+							}
+							break;
+						case 'REG':
+							for(var j = 0; j < a ;j++){
+								move(1);
+							}
+							break;
+						case 'BOT':
+							for(var j = 0; j < a ;j++){
+								move(2);
+							}
+							break;
+						case 'TOP':
+							for(var j = 0; j < a ;j++){
+								move(0);
+							}
+							break;
+					}
+				}
+				else if (block.commandQueue[i].includes('TUN')) {
+					switch (block.commandQueue[i].slice(4 , 7)) {
+						case 'LFT':
+							for(var j = 0; j < a ;j++){
+								turn(false , 1);
+							}
+							break;
+						case 'REG':
+							for(var j = 0; j < a ;j++){
+								turn(true , 1);
+							}
+							break;
+						case 'BCK':
+							for(var j = 0; j < a ;j++){
+								turn(true , 2);
+							}
+							break;
+					}
+				}
+				else {
+					for (var j = 0; j < a ; j++) {
+						move(getDirection());
+					}
+				}
+			}
+			block.commandQueue = [];
 		}
 		elements.button.addEventListener('click', ex);
 		elements.input.addEventListener('change' , clearEffect);
