@@ -1,0 +1,31 @@
+.tg {
+	border-collapse:collapse;
+	border-spacing:0;
+	left: 50%;
+	margin-left: -265px; 
+	position: relative;
+	display: block;
+}
+.tg td {
+	font-family:Arial, sans-serif;
+	font-size:16px;
+	padding:10px 16px;
+	border: 2px solid #3e3e3e ;
+	overflow:hidden;
+	word-break:normal;
+	width: 100px;
+	text-align: center;
+}
+.tg th {
+	font-family:Arial, sans-serif;
+	font-size:18px;
+	color: #3e3e3e;
+	font-weight:normal;
+	background-color: #cb704f;
+	border: 2px solid #3e3e3e ;
+	overflow:hidden;
+	word-break:normal;
+}
+p {
+	text-align: center;
+}

@@ -1,0 +1,57 @@
+.tg {
+	border-collapse:collapse;
+	border-spacing:0;
+	left: 50%;
+	margin-left: -265px; 
+	position: absolute;
+}
+.tg td {
+	font-family:Arial, sans-serif;
+	font-size:16px;
+	padding:10px 16px;
+	border: 2px solid #3e3e3e ;
+	overflow:hidden;
+	word-break:normal;
+	width: 100px;
+	text-align: center;
+}
+.tg th {
+	font-family:Arial, sans-serif;
+	font-size:18px;
+	color: #3e3e3e;
+	font-weight:normal;
+	background-color: #cb704f;
+	border: 2px solid #3e3e3e ;
+	overflow:hidden;
+	word-break:normal;
+}
+.tabletitle {
+	position: relative;
+	top: 8px;
+	left: 10px;
+}
+.arrow {
+	display: inline-block;
+	height: 40px;
+	float: right;
+	padding: 0 10px;
+}
+.arrowUp {
+	display: block;
+	cursor: pointer;
+	width: 0; 
+	height: 0; 
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-bottom: 15px solid #3e3e3e;
+	margin: 3px 0 5px 0;
+}
+.arrowDown {
+	display: block;
+	cursor: pointer;
+	width: 0; 
+	height: 0; 
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-top: 15px solid #3e3e3e;
+}
