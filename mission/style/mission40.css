@@ -1,0 +1,73 @@
+.tg  {
+	border-collapse:collapse;
+	user-select : none;	
+}
+.daysdata , .daystitle {
+	width: 45px;
+	font-family: Arial, sans-serif;
+	font-size:18px;
+	padding:15px 8px;
+	color:#444;
+	background-color:#ffffff;
+	text-align: center;
+	table-layout: fixed;
+	word-break: break-all;
+	word-wrap: break-word;
+}
+.daysdata {
+	cursor: pointer;
+}
+.disable {
+	color: #d0d0d0;
+	cursor: default;
+}
+.tg th {
+	font-family:Arial, sans-serif;
+	font-size:18px;
+	padding:5px 15px;
+	border-bottom: 1px solid #aeaeae;
+	color:#fff;
+	background-color : #CE0000;
+}
+.tg tr {
+	padding: 5px 12px;
+}
+.holidays {
+	color : #ff0000;
+}
+.wrapper {
+	position: absolute;
+	left: 50%;
+	margin-left: -180px;
+	width: auto;
+	height: auto;
+	border :1px solid #aeaeae;
+}
+.arrowleft {
+	margin-top: 2.5px;
+	vertical-align: 15px;
+	cursor: pointer;
+	float: left;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 7.5px 13px 7.5px 0;
+	border-color: transparent #ffffff transparent transparent;
+}
+.arrowright {
+	margin-top: 2.5px;
+	cursor: pointer;
+	float: right;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 7.5px 0 7.5px 13px;
+	border-color: transparent transparent transparent #ffffff;
+}
+
+.arrowleft:hover {
+	border-color: transparent #FFECEC transparent transparent;
+}
+.arrowright:hover {
+	border-color: transparent transparent transparent #FFECEC;
+}

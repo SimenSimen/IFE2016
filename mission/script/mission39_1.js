@@ -5,7 +5,8 @@
 		function fixtop (e) {
 			var height = table.offsetHeight ;
 			var left = table.offsetLeft ;
-			if(e.target.scrollingElement.scrollTop > 50 && e.target.scrollingElement.scrollTop < height){
+			var top = table.offsetTop;
+			if(e.target.scrollingElement.scrollTop > top && e.target.scrollingElement.scrollTop < height){
 				title.style.position = 'fixed';
 				title.style.top = 0;
 				title.style.left = left  -1 + 'px';
@@ -13,7 +14,7 @@
 			else if (e.target.scrollingElement.scrollTop > height) {
 				title.removeAttribute('style');
 			}
-			else if (e.target.scrollingElement.scrollTop < 30){
+			else if (e.target.scrollingElement.scrollTop < top - 20){
 				title.removeAttribute('style');
 			}
 		}
