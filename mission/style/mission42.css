@@ -1,0 +1,130 @@
+.tg  {
+	border-collapse:collapse;
+	user-select : none;
+}
+.daysdata0 , .daystitle , .daysdata1{
+	width: 45px;
+	font-family: Arial, sans-serif;
+	font-size:18px;
+	padding:15px 8px;
+	color:#444;
+	background-color:#ffffff;
+	text-align: center;
+	table-layout: fixed;
+	word-break: break-all;
+	word-wrap: break-word;
+}
+.daysdata0 , .daysdata1{
+	cursor: pointer;
+}
+.disable {
+	color: #d0d0d0;
+	cursor: default;
+}
+.tg th {
+	font-family:Arial, sans-serif;
+	font-size:18px;
+	padding:5px 15px;
+	border-bottom: 1px solid #aeaeae;
+	color:#fff;
+	background-color : #CE0000;
+}
+.tg tr {
+	padding: 5px 12px;
+}
+.holidays {
+	color : #ff0000;
+}
+.calendar {
+	position: absolute;
+	width: auto;
+	height: auto;
+	border :1px solid #aeaeae;
+}
+.wrapper {
+	position: absolute;
+	left: 50%;
+	margin-left: -420px;
+	width: auto;
+}
+.cwrapper {
+	display: inline-block;
+}
+.arrowleft {
+	margin-top: 2.5px;
+	vertical-align: 15px;
+	cursor: pointer;
+	float: left;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 7.5px 13px 7.5px 0;
+	border-color: transparent #ffffff transparent transparent;
+}
+.arrowright {
+	margin-top: 2.5px;
+	cursor: pointer;
+	float: right;
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 7.5px 0 7.5px 13px;
+	border-color: transparent transparent transparent #ffffff;
+}
+
+.arrowleft:hover {
+	border-color: transparent #FFECEC transparent transparent;
+}
+.arrowright:hover {
+	border-color: transparent transparent transparent #FFECEC;
+}
+.showdate {
+	text-align: center;
+	width: 415px;
+	padding:5px;
+	font-size:25px;
+	border-width:2px;
+	border-color:#cccccc;
+	border-style:solid;
+	font-family:serif;
+}
+.monthSelect {
+	font-size: 16px;
+	font-family:Arial, sans-serif;
+	height: 24px;
+}
+.yearSelect {
+	margin-left: 5px;
+	text-align: center;
+	font-size: 16px;
+	font-family:Arial, sans-serif;
+}
+.cBtn {
+	
+}
+.cBtn {
+	background: #f57878;
+	background-image: -webkit-linear-gradient(top, #f57878, #eb6161);
+	background-image: -moz-linear-gradient(top, #f57878, #eb6161);
+	background-image: -ms-linear-gradient(top, #f57878, #eb6161);
+	background-image: -o-linear-gradient(top, #f57878, #eb6161);
+	background-image: linear-gradient(to bottom, #f57878, #eb6161);
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 15px;
+	padding: 5px 10px;
+	border:none;
+	position: relative;
+	left: 37%;
+	margin-bottom: 2px;
+}
+
+.cBtn:hover {
+	background: #e00000;
+	background-image: -webkit-linear-gradient(top, #e00000, #ff6666);
+	background-image: -moz-linear-gradient(top, #e00000, #ff6666);
+	background-image: -ms-linear-gradient(top, #e00000, #ff6666);
+	background-image: -o-linear-gradient(top, #e00000, #ff6666);
+	background-image: linear-gradient(to bottom, #e00000, #ff6666);
+	text-decoration: none;
+}
