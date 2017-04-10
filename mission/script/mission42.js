@@ -15,6 +15,7 @@ function Calendar (id , p) {
 		cancelBtn : c_('cBtn')[id*2+1],
 		checkedDate : [],
 	};
+	this.contactindex ;
 	this.fullDate;
 	this.period = p ? true : false;
 	this.elements.dateobj.setDate(1);
@@ -119,15 +120,20 @@ Calendar.prototype.checkHover = function () {
 	for (var i = 0; i < this.elements.checkedDate.length; i++) {
 		var el = this.elements.checkedDate[i];
 		this.resetDateHover(el.dayHtmlObj);
-		if (el.year == this.year && el.month == this.month)
+		if (el.year == this.year && el.month == this.month){
 			this.dateHover(el.dayHtmlObj);
+			this.checkContact();
+		}
 	}
 }
 Calendar.prototype.searchYear = function () {
 	this.elements.dateobj.setFullYear(this.elements.yearselect.value , this.elements.monthselect.selectedIndex ,1);
 	this.setCalender();
 	this.checkHover();
+	if(this.contactindex)
+		this.resetContactDates(this.contactindex[0] , this.contactindex[1]);
 	this.randerCalendar();
+	
 }
 Calendar.prototype.dateHover = function (e) {
 	if(e.target.className == ('daysdata' + this.id) || e.target.className == ('daysdata' + this.id ) +' holidays'){
@@ -136,22 +142,27 @@ Calendar.prototype.dateHover = function (e) {
 	}
 }
 Calendar.prototype.resetDateHover = function (e) {
-	if(e.target.className == ('daysdata' + this.id) || e.target.className == ('daysdata' + this.id ) +' holidays')
-		e.target.style = ''; 
+	e.target.style = '';
 }
 Calendar.prototype.tableGetClick = function (e) {
 	if (e.target.className == 'arrowleft') {
 		this.getPreviousMonth();
+		if(this.contactindex)
+			this.resetContactDates(this.contactindex[0] , this.contactindex[1]);
 		this.checkHover();
 	}
 	else if (e.target.className == 'arrowright') {
 		this.getNextMonth();
+		if(this.contactindex)
+			this.resetContactDates(this.contactindex[0] , this.contactindex[1]);
 		this.checkHover();
 	}
 	else if (e.target.className == ('daysdata' + this.id) || e.target.className == ('daysdata' + this.id ) +' holidays') {
 		if (this.period == true) {
 			var theday = {dayHtmlObj : e , year : this.year , month : this.month};
 			var arr = [];
+			if(this.contactindex)
+				this.resetContactDates(this.contactindex[0] , this.contactindex[1]);
 			if(this.elements.checkedDate.length == 2) {
 				this.resetDateHover(this.elements.checkedDate[0].dayHtmlObj);
 				this.resetDateHover(this.elements.checkedDate[1].dayHtmlObj);
@@ -167,6 +178,8 @@ Calendar.prototype.tableGetClick = function (e) {
 					this.dateHover(el.dayHtmlObj);
 				arr.push(el.year + ' / ' + (el.month+1) + ' / ' + el.dayHtmlObj.target.innerHTML);
 			}
+			if(this.elements.checkedDate[1])
+				this.contactindex = this.contactDates(this.elements.checkedDate[0],this.elements.checkedDate[1]);
 			this.fullDate = arr.join(' - ');
 		}
 		else {
@@ -190,12 +203,23 @@ Calendar.prototype.getSelectDate = function () {
 	this.elements.showdate.value = this.fullDate;
 }
 Calendar.prototype.contactDates = function (date1 , date2) {
-	if (date1.year == date2.year && date1.month == date2.month) {
-
+	if(date1.year == date2.year && date1.month == date2.month){
+		var d1index = Array.prototype.indexOf.call(this.elements.tableCells , date1.dayHtmlObj.target);
+		var d2index = Array.prototype.indexOf.call(this.elements.tableCells , date2.dayHtmlObj.target);
+		for (var i = d1index + 1 ; i < d2index ; i++) {
+			this.elements.tableCells[i].style.background = 'rgba(155,155,155,0.4)';
+		}
+		return [d1index , d2index];
 	}
-	else {
-		
+}
+Calendar.prototype.resetContactDates = function (index1 , index2) {
+	for (var i = index1 + 1 ; i < index2 ; i++) {
+		this.elements.tableCells[i].style = '';
 	}
+}
+Calendar.prototype.checkContact = function () {
+	if(this.elements.checkedDate[1])
+		this.contactDates(this.elements.checkedDate[0],this.elements.checkedDate[1]);
 }
 window.onload = () => {
 	var calendar1 = new Calendar(0);
