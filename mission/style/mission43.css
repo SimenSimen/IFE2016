@@ -5,9 +5,10 @@
 	position: absolute;
 }
 .albumBox-1 ,.albumBox-2 ,.albumBox-3 ,.albumBox-4 ,.albumBox-5 ,.albumBox-6 {
+	position: relative;
 	margin-top: 10px;
-	width: 100%;
-	height: 700px;
+	width: 1000px;
+	height: 800px;
 }
 .albumBox-1 img ,.albumBox-2 img ,.albumBox-3 img ,.albumBox-4 img ,.albumBox-5 img ,.albumBox-6 img ,.albumBox-1 .pic {
 	width: 100%;
@@ -16,7 +17,7 @@
 }
 .albumBox-2 .pic ,.albumBox-2 .pic1{
 	position: absolute;
-	width: 66.6%;
+	width: 66.66%;
 	height: inherit;
 }
 .albumBox-2 .pic1 {
@@ -29,12 +30,12 @@
 .albumBox-3 .pic {
 	float: left;
 	height: inherit;
-	width: 66.66%;
+	width: 60%;
 }
 .albumBox-3 .pic1 , .albumBox-3 .pic2 {
 	float: left;
 	height: 50%;
-	width: 33.33%;
+	width: 40%
 }
 .albumBox-4 .pic , .albumBox-4 .pic1 ,.albumBox-4 .pic2 ,.albumBox-4 .pic3 {
 	float: left;
@@ -53,10 +54,10 @@
 	height: 66.66%;
 }
 .albumBox-5 .pic1 {
-	height: 33.33%
+	height: 41.66%
 }
 .albumBox-5 .pic2 {
-	height: 66.66%
+	height: 58.34%
 }
 .albumBox-5 .pic3 {
 	height: 33.33%;
