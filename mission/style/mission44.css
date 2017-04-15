@@ -12,8 +12,13 @@
 	left: 0;
 }
 .albumDiv-cover img{
-	position: relative;
-
+	position: absolute;
+	display: block;
+	top : 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	margin : auto;
 }
 .column {
 	display: inline-block;

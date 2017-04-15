@@ -15,20 +15,32 @@
 </style>
 <body>
 	<p>相簿demo</p>
-	<div id="wrapper">
-		
+	<div id="wrapper">	
 	</div>
 	<script>
 		var album = new WaterfullAlbum();
+		var body = document.getElementsByTagName('body')[0];
 		album.insertAlbum('wrapper');
 		album.addClickEffect();
 		album.addImgFrame('http://placehold.it/500x750/ff24e5/fff');
 		album.addImgFrame('http://placehold.it/350x750/fff67c/fff');
 		album.addImgFrame('http://placehold.it/400x350/3e08b2/fff');
 		album.addImgFrame('http://placehold.it/350x850/915fff/fff');
-		album.addImgFrame('http://placehold.it/750x750/5300b2/fff');
-		album.addImgFrame('http://placehold.it/350x750/8316ff/fff');
+		album.addImgFrame('http://placehold.it/750x750/0018b2/fff');
+		album.addImgFrame('http://placehold.it/350x750/86f3ff/fff');
 		album.addImgFrame('http://placehold.it/450x650/8316ff/fff');
+		window.addEventListener('scroll', (e)=>{
+			if((window.scrollY + window.screen.height - 150) > body.offsetHeight) {
+				console.log(1);
+				album.addImgFrame('http://placehold.it/500x750/ff24e5/fff');
+				album.addImgFrame('http://placehold.it/350x750/fff67c/fff');
+				album.addImgFrame('http://placehold.it/400x350/3e08b2/fff');
+				album.addImgFrame('http://placehold.it/350x850/915fff/fff');
+				album.addImgFrame('http://placehold.it/750x750/0018b2/fff');
+				album.addImgFrame('http://placehold.it/350x750/86f3ff/fff');
+				album.addImgFrame('http://placehold.it/450x650/8316ff/fff');
+			}
+		});
 	</script>
 </body>
 </html>

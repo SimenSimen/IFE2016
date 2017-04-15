@@ -29,10 +29,10 @@
 		contentBox.appendChild(pBox);
 		frameBox.appendChild(img);
 		frameBox.appendChild(contentBox);
-		setTimeout(()=>{
+		img.onload = ()=>{
 			this.columns.sort((a,b)=>{return a.offsetHeight - b.offsetHeight;});
 			this.columns[0].appendChild(frameBox);
-		}, 300);	
+		}
 		this.frames.push(frameBox);	
 	};
 	WaterfullAlbum.prototype.addClickEffect = function () {
@@ -44,11 +44,7 @@
 		this.albumDiv.addEventListener('click',(e)=>{
 			if(e.target.tagName == 'IMG') {
 				div.style = 'display : block';
-				img.src = e.target.src ;
-				img.onload = ()=>{
-					img.style.top = 'calc(50% - ' + img.offsetHeight/2 + 'px)';
-					img.style.left = 'calc(50% - ' + img.offsetWidth/2 + 'px)';
-				};		
+				img.src = e.target.src ;	
 			}
 		});
 		div.addEventListener('click',(e)=>{
