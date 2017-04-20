@@ -1,0 +1,12 @@
+.album-div {
+	padding: 16px;
+	width: 100%;
+}
+.album-row img {
+	height: inherit;
+	float: left;
+}
+.album-row {
+	float: left;
+	height: 300px;
+}

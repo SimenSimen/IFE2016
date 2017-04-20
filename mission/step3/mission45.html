@@ -3,8 +3,30 @@
 <head>
 	<meta charset="UTF-8">
 	<title>mission45</title>
+	<script src="../script/mission45.js"></script>
+	<link rel="stylesheet" href="../style/mission45.css">
+	<style>
+		#wrapper {
+			width: 1000px;
+		}
+	</style>
 </head>
 <body>
-	
+	<div id="wrapper">
+
+	</div>
+	<script>
+		var album = new Flicker();
+		album.insertAlbum('wrapper');
+		album.getImg('http://placehold.it/500x750/ff24e5/fff');
+		album.getImg('http://placehold.it/350x750/fff67c/fff');
+		album.getImg('http://placehold.it/400x350/3e08b2/fff');
+		album.getImg('http://placehold.it/350x850/915fff/fff');
+		album.getImg('http://placehold.it/750x750/0018b2/fff');
+		album.getImg('http://placehold.it/350x750/86f3ff/fff');
+		album.getImg('http://placehold.it/450x650/8316ff/fff');
+		album.getImg('http://placehold.it/750x750/0018b2/fff');
+		album.randerImg(); 
+	</script>
 </body>
 </html>
