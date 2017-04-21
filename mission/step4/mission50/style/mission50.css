@@ -1,5 +1,5 @@
 body {
-	background-color: rgb(239,239,239);
+	background-color: #f0f0f0;
 }
 .navbar {
 	padding-top: 0px;
@@ -8,6 +8,7 @@ body {
 	color: #fff;
 	font-family: "Microsoft JhengHei" ,  sans-serif;
 	letter-spacing: -1px;
+	font-size: 15px;
 }
 
 .circleSpan {
@@ -35,9 +36,8 @@ body {
 	margin-left: 0px;
 }
 .contentWrapper	{
-	margin-top: 50px;
-
-	box-shadow: 5px 5px 5px grey;
+	margin-top : 50px;
+	border-radius : 0 0 10px 10px;
 }
 
 .buttons {
@@ -49,9 +49,9 @@ body {
 	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f6f6f6',GradientType=0);
 	background-color:#ffffff;
-	-moz-border-radius:5px;
-	-webkit-border-radius:5px;
-	border-radius:5px;
+	-moz-border-radius:1px;
+	-webkit-border-radius:1px;
+	border-radius:1px;
 	border:1px solid rgb(144,144,144);
 	display:inline-block;
 	cursor:pointer;
@@ -74,6 +74,40 @@ body {
 	background-color:#f6f6f6;
 }
 .buttons:active {
+	position:relative;
+	top:1px;
+}
+.table {
+	margin: 0px;
+	font-size: 15px;
+	color: #5c5c5c;
+	font-family: "Microsoft JhengHei" ,  sans-serif;
+}
+.table tbody {
+	background-color: #fff;
+	border-bottom : 30px solid #fff;
+	border-right : 20px solid #fff;
+	border-left : 20px solid #fff;
+}
+.table thead {
+	border-right : 20px solid #f0f0f0;
+	border-left : 20px solid #f0f0f0;
+}
+.table .firstRow td{
+	border-top: none;
+}
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+	background-color: rgb(252,240,229);
+}
+.createButton {
+	cursor: pointer;
+	padding : 0 5px;
+	border : 1px solid rgb(199,100,5);
+	float: right;
+	background-color: rgb(237,116,25);
+	color:#fff;
+}
+.createButton:active {
 	position:relative;
 	top:1px;
 }
