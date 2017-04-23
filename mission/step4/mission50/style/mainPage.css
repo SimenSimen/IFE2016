@@ -1,0 +1,23 @@
+.table {
+	margin: 0px;
+	font-size: 15px;
+	color: #5c5c5c;
+	font-family: "Microsoft JhengHei" ,  sans-serif;
+	user-select : none;
+}
+.table tbody {
+	background-color: #fff;
+	border-bottom : 30px solid #fff;
+	border-right : 20px solid #fff;
+	border-left : 20px solid #fff;
+}
+.table thead {
+	border-right : 20px solid #f0f0f0;
+	border-left : 20px solid #f0f0f0;
+}
+.table .firstRow td{
+	border-top: none;
+}
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+	background-color: rgb(252,240,229);
+}

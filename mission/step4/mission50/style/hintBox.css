@@ -1,0 +1,71 @@
+.hint {
+	width: 350px;
+	height: 300px;
+	top:0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin:auto;
+	position: absolute;
+	background-color: #fff;
+	border-radius: 5px;
+	user-select:none;
+}
+.hintHeader {
+	width: 100%;
+	background-color: rgb(218,218,218); ;
+	height: 30px;
+	padding: 5px 0;
+	position: relative;
+	top: 0;
+	left: 0;
+	border-radius: 5px 5px 0 0;
+}
+
+.hintHeader h3 {
+	text-align: center;
+	font-family: cursive;
+	margin:0;
+}
+.hintContainer label {
+	color: #4c4028 ;
+	margin-left: 10px;
+}
+.hint-background {
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	position: fixed; 
+	background: rgba(150,150,120,0.5);
+}
+.buttongroup {
+text-align: center;
+}
+#hintHeaderText {
+	font-size: 20px;
+	width: 100%;
+}
+.closebtn {
+	cursor: pointer;
+	float: right;
+	color: #3f3f3f;
+}
+.hintContent {
+	padding:20px;
+	height: 100%;
+}
+#setQnsId {
+	border:none;
+	font-size: 15px;
+	outline: none;
+	width: 100%;
+	height: 40px;
+	text-align: center;
+	color: #5c5c5c;
+	font-weight: bold;
+}
+#setQnsoption {
+	margin-top: 15px;
+	resize: none;
+}

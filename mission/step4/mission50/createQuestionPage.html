@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>mission50</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="style/mission50.css">
+	<link rel="stylesheet" href="style/createQuestionPage.css">
+	<link rel="stylesheet" href="style/calendar.css">
+	<link rel="stylesheet" href="style/hintBox.css">
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="script/calendar.js"></script>
+	<script src="script/hintBox.js"></script>
+	<script src="script/createQuestions.js"></script>
+</head>
+<body>
+	<nav class="navbar">
+		<div class="container-fluid">
+			<div class="col-md-3">
+				<span id="logo" class="navbar-text">問卷管理</span>
+				<span class="circleSpan navbar-text">?</span>
+			</div>
+			<div class="col-md-9">
+				<span class="navbar-text">我的問卷</span>
+			</div>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="col-md-12">
+			<div class="contentWrapper">
+				<div class="header">
+					<input id="titleinput" type="text" value="這裡是標題">
+				</div>
+				<div class="middle">
+					<div class="questions">
+						
+					</div>
+					<div class="questionAddBtns">
+						<div class="selectQ" style="display: none;">
+							<span class="buttons">
+								<span class="glyphicon glyphicon-record"></span>
+								<span>單選</span>
+							</span>
+							<span class="buttons">
+								<span class="glyphicon glyphicon-ok-sign"></span>
+								<span>多選</span>
+							</span>
+							<span class="buttons">
+								<span class="glyphicon glyphicon-list-alt"></span>
+								<span>文本題</span>
+							</span>
+						</div>
+						<span id="addBtn">
+							<span class="glyphicon glyphicon-plus"></span>
+							<span>添加問題</span>
+						</span>
+					</div>
+				</div>
+				<div class="footer">
+					<div class="calendarBox">
+						<span>問卷截止日期</span>
+						<div class="calendarWrapper">
+							<input id="showdate" type="text">
+							<div class="calendar" style="display: none">
+								<table class="tg">
+									<tr>
+										<th id = "header" colspan="7">
+											<span class="arrowleft"></span>
+											<span id = "headertext"></span>
+											<span class="arrowright"></span>
+										</th>
+									</tr>
+									<tr>
+										<td class="daystitle holidays">Sun.</td>
+										<td class="daystitle">Mon.</td>
+										<td class="daystitle">Tue.</td>
+										<td class="daystitle">Wed.</td>
+										<td class="daystitle">Thu.</td>
+										<td class="daystitle">Fri.</td>
+										<td class="daystitle holidays">Sat.</td>
+									</tr>
+									<tr>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>	
+									</tr>
+									<tr>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>	
+									</tr>
+									<tr>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>	
+									</tr>
+									<tr>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>	
+									</tr>
+									<tr>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>	
+									</tr>
+									<tr>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>
+										<td class="daysdata"></td>	
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div class="footerBtnBox">
+							<span class="all-buttons">保存問卷</span>
+							<span class="all-buttons">發佈問卷</span>
+						</div>
+					</div>						
+				</div>
+			</div>
+		</div>
+	</div>
+		<div class="hint-background" style="display: none;">
+			<div class="hint">
+				<div class="hintHeader">
+					<div id = "hintHeaderText">
+						<span>提示</span>
+						<span class="closebtn">&#10006;</span>
+					</div>
+				</div>
+				<div class="hintContainer">
+					<div class="hintContent">
+						
+					</div>
+					<div class="buttongroup">
+						<span class="all-buttons" id='hint-confirm'>確認</span>
+						<span class="all-buttons" id='hint-cancel'>取消</span>
+					</div>		
+				</div>
+			</div>
+		</div>
+</body>
+</html>

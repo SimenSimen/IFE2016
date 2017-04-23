@@ -62,12 +62,13 @@
     <script>
         var player;
         var lyrics = document.getElementById("theLyrics");
-        var lyricsTime = [2,9,22,29,37,44,50.5,58,65,72,79,86,93,100,107,114,121,132,139,146,153,160,170,178,185,192,199,206,213,220,227,234,255];
+        var lyricsTime = [2,9,22,29,37,44,50.5,58,65,72,79,86,93,100,107,114,121,132,139,146,153,160,170,178,185,192,199,206,213,220,227,234,255,288];
         function onYouTubeIframeAPIReady() {
+            var a = 'IIKPA8Z-D0g';
             player = new YT.Player('player', {
                 height: '390'
                 , width: '640', //videoId: 'rtcT_MIsE-E',
-                videoId: '1OEron4rXfk'
+                videoId: a
                 , events: {
                     'onReady': onPlayerReady
                 }
@@ -102,6 +103,7 @@
                 lyrics.scrollTop = scrollTo-600;
             }
         }
+    
     </script>
 </body>
 

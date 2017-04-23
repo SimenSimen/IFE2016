@@ -219,13 +219,13 @@
 					data = elements.input_Data.radioTypeData;
 					this.tagName = 'input';
 					this.type = 'radio';
-					this.name = 'group-' + inputId;			
+					this.name = 'group-' + elements.inputId;			
 					break;
 				case 3:
 					data = elements.input_Data.checkboxTypeData;
 					this.tagName = 'input';
 					this.type = 'checkbox';
-					this.name = 'group-' + inputId;	
+					this.name = 'group-' + elements.inputId;	
 					break;
 				case 4:
 					data = elements.input_Data.selectTypeData;
