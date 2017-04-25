@@ -2,13 +2,13 @@ var c_ = (className)=>{return document.getElementsByClassName(className);};
 var id_ = (id)=>{return document.getElementById(id);};
 (()=>{
 	function init () {
+
 		var d = new Date();
 		var title = id_('headertext');
 		var tableCells = c_('daysdata');
 		var next = c_('arrowright')[0];
 		var previous = c_('arrowleft')[0];
 		var table = c_('tg')[0];
-		var p = id_('message');
 		var input = id_('showdate');
 		var calendarDiv = c_('calendar')[0];
 		var checkedDate = [];
@@ -126,7 +126,7 @@ var id_ = (id)=>{return document.getElementById(id);};
 				randerCalendar();
 			}
 			else if (e.target.className == 'daysdata' || e.target.className == 'daysdata holidays') {
-				showdate.value = calendar.year + ' / ' + calendar.month + ' / ' + e.target.innerHTML;
+				showdate.value = calendar.year + ' / ' + (calendar.month+1) + ' / ' + e.target.innerHTML;
 				table.removeEventListener('mouseout', resetDateHover);
 				table.removeEventListener('mouseover', dateHover);
 				dateHover(e);
