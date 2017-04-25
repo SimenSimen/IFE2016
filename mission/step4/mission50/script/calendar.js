@@ -77,10 +77,12 @@ var id_ = (id)=>{return document.getElementById(id);};
 		function getNextMonth () {
 			d.setMonth(calendar.month + 1, 1);
 			setCalender();
+			randerCalendar();
 		}
 		function getPreviousMonth () {
 			d.setMonth(calendar.month - 1, 1);
 			setCalender();
+			randerCalendar();
 		}
 		function getDates () {
 			var thisMonth = [];
@@ -112,28 +114,36 @@ var id_ = (id)=>{return document.getElementById(id);};
 			}
 		}
 		function resetDateHover (e) {
-			if(e.target.className == 'daysdata' || e.target.className ==  'daysdata holidays')
 				e.target.style = ''; 
+		}
+		function checkHover () {
+			if (!checkedDate[0]) 
+				return;
+			var el = checkedDate[0];
+			resetDateHover(el.dayHtmlObj);
+			if (el.year == calendar.year && el.month == calendar.month)
+				dateHover(el.dayHtmlObj);
 		}
 		function tableGetClick (e) {
 			if (e.target.className == 'arrowleft') {
 				getPreviousMonth();
-				randerCalendar();
+				checkHover();
 			}
 			else if (e.target.className == 'arrowright') {
 				getNextMonth();
-				randerCalendar();
+				checkHover();
 			}
 			else if (e.target.className == 'daysdata' || e.target.className == 'daysdata holidays') {
 				showdate.value = calendar.year + ' / ' + (calendar.month+1) + ' / ' + e.target.innerHTML;
 				table.removeEventListener('mouseout', resetDateHover);
 				table.removeEventListener('mouseover', dateHover);
-				dateHover(e);
+				var theday = {dayHtmlObj : e , year : calendar.year , month : calendar.month};
 				if(checkedDate[0])
-					resetDateHover(checkedDate[0]);
+					resetDateHover(checkedDate[0].dayHtmlObj);
+				dateHover(theday.dayHtmlObj);
 				checkedDate = [];
-				checkedDate.push(e);
-				getSelectDate(showdate.value);
+				checkedDate.push(theday);
+				getSelectDate({year: calendar.year , month : calendar.month+1 , day : e.target.innerHTML});
 			}
 		}
 		function showCalender (e) {
@@ -145,7 +155,12 @@ var id_ = (id)=>{return document.getElementById(id);};
 			}
 		}
 		function getSelectDate (date) {
-		
+			var today = new Date();
+			var checkeday = new Date( date.year , date.month-1 , date.day , today.getHours()+1);
+			if (checkeday - today >= 0) 
+				return;
+			else
+				showdate.value = '請勿選取過去的日子 !';
 		}
 		randerCalendar();
 		table.addEventListener('mouseover', dateHover);

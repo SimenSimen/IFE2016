@@ -2,7 +2,7 @@
 	function init () {
 		var inputName = document.createElement('input');
 		var inputTitle = '請在這裡輸入問題';
-		var radioText = '，下方輸入選項(以任何符號隔開)';
+		var radioText = '，下方輸入選項(以",""空格"隔開)';
 		var inputOption = document.createElement('input');
 		var manipulate = ['上移','下移' ,'複製','刪除'];
 		var questions = [];
@@ -10,8 +10,8 @@
 		inputName.id = 'setQnsId';
 		inputName.value = inputTitle;
 		inputOption.id = 'setQnsoption';
-		function createButtons (type , n , name , label , box) {
-			if(type == 'textarea') {
+		function createButtons (qn , box) {
+			if(qn.type == 'textarea') {
 				var textarea = document.createElement('textarea');
 				var input = document.createElement('input');
 				var span = document.createElement('span');
@@ -20,20 +20,20 @@
 				input.type = 'checkbox';
 				input.checked = true;
 				input.className = 'necesseryBtn';
-				textarea.name = name;
+				textarea.name = qn.name;
 				box.append(textarea);
 				box.append(input);
 				box.append(span);
 			}
 			else {
-				for(var i = 0 ; i < n; i++){
+				for(var i = 0 ; i < qn.options.length; i++){
 					var div = document.createElement('div');
 					var input = document.createElement('input');
 					var labels = document.createElement('span');
-					labels.innerHTML = label[i];
-					input.type = type;
-					input.name = name;
-					input.value = label[i];
+					labels.innerHTML = qn.options[i];
+					input.type = qn.type;
+					input.name = qn.name;
+					input.value = qn.options[i];
 					div.appendChild(input);
 					div.appendChild(labels);
 					box.append(div);
@@ -59,7 +59,6 @@
 			box.appendChild(optionbox);
 			box.appendChild(footer);
 			$('.questions').append(box);
-			return box;
 		}
 		function setQuestion (title , type , options) {
 			var match = options ? options.match(/[\w\3400-\u9fff]+/g) : undefined;
@@ -125,7 +124,6 @@
 			for(var i = 0, length1 = questions.length; i < length1; i++){
 				var optionbox = $('.questionBoxOptions').eq(i);
 				$('.titleNumber').eq(i).html('Q' + questions[i].id);
-				console.log($('.titleNumber').eq(i));
 					if (questions[i].type == 'textarea') {
 					optionbox.children(0).prop('name' , questions[i].name);
 				}
@@ -181,6 +179,8 @@
 		function cloneQ (qn) {
 			if (questions.length == 10) 
 				return alert('輸入問題數已達上限');
+	
+			createQuestionBox();
 			
 			var cloneQn = {};
 			cloneQn.id = qn.id + 1;
@@ -189,11 +189,31 @@
 			cloneQn.question = qn.question;
 			cloneQn.type = qn.type;
 
+			$('.titleText:last').html(cloneQn.question);
+			createButtons(cloneQn, $('.questionBoxOptions:last'));
+			
 			var index = questions.indexOf(qn);
 			questions.splice(index+1 , 0 , cloneQn);
+			$('.questionBox').eq(index).after($('.questionBox:last'));
+			
+			setInterface(cloneQn);
+
+			for(var i = cloneQn.id, length1 = questions.length; i < length1; i++){
+				questions[i].name = 'question-' + (i+1); 
+				questions[i].id = i+1 ;
+			}
+			randerNumber();
+			checkInterface();
 		}
 		function deleteQ (qn) {
-			console.log(qn);
+			questions.splice(qn.id-1 , 1);
+			$('.questionBox').eq(qn.id-1).remove();
+			for(var i = qn.id-1, length1 = questions.length; i < length1; i++){
+				questions[i].name = 'question-' + (i+1); 
+				questions[i].id = i+1 ;
+			}
+			randerNumber();
+			checkInterface();
 		}
 		function addQuestion() {
 			var newQn = questions[questions.length-1] ;
@@ -201,7 +221,7 @@
 			$('.titleText:last').html(newQn.question);
 			setInterface(newQn);
 			checkInterface();
-			createButtons(newQn.type , newQn.options.length ,newQn.name , newQn.options , $('.questionBoxOptions:last'));
+			createButtons(newQn , $('.questionBoxOptions:last'));
 		}
 		if (location.hash == '#editpage') {
 			
