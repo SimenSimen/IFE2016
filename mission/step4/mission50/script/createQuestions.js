@@ -59,9 +59,21 @@
 			box.appendChild(optionbox);
 			box.appendChild(footer);
 			$('.questions').append(box);
+			return box;
 		}
 		function setQuestion (title , type , options) {
 			var match = options ? options.match(/[\w\3400-\u9fff]+/g) : undefined;
+			var checkrepeat = function () {
+					for (var i = 0; i < this.length; i++) {
+						for(var j = i+1 ; j < this.length; j++){
+							if(this[i] === this[j])
+							this.splice(j,1);
+						}
+					}
+				}
+				for(var k = 0; k < 100; k++){
+				 	checkrepeat.call(match);
+				}
 			var questionJson = { 
 				id : questions.length + 1 , 
 				name : 'question-' +  (questions.length + 1) ,
@@ -109,45 +121,39 @@
 				last.children[1].style = 'display :none';
 			}
 		}
+		function randerNumber () {
+			for(var i = 0, length1 = questions.length; i < length1; i++){
+				var optionbox = $('.questionBoxOptions').eq(i);
+				$('.titleNumber').eq(i).html('Q' + questions[i].id);
+				console.log($('.titleNumber').eq(i));
+					if (questions[i].type == 'textarea') {
+					optionbox.children(0).prop('name' , questions[i].name);
+				}
+				else {
+					for(var j = 0, length2 = optionbox.children.length; j < length1; j++){
+						optionbox.children(j).children(0).prop('name' , questions[i].name);
+					}
+				}
+			}
+		}
 		function moveUp (qn) {
 			var index = questions.indexOf(qn);
 			var preQn = questions[index-1];
 			var qnbox = document.getElementsByClassName('questionBox')[index];
 			var preQnbox = qnbox.previousElementSibling;
 			var wrapper = document.getElementsByClassName('questions')[0];
-			var title = document.getElementsByClassName('titleNumber')[index];
-			var ptitle = document.getElementsByClassName('titleNumber')[index-1];
-			var optionBox = document.getElementsByClassName('questionBoxOptions')[index];
-			var preoptionBox = document.getElementsByClassName('questionBoxOptions')[index-1];
 
 			preQn.id = index+1;
 			qn.id = index;
 			preQn.name = 'question-' + preQn.id;
 			qn.name = 'question-' + qn.id ;
 
-			if (qn.type == 'textarea') {
-				optionBox.children[0].name = qn.name;
-			}
-			else {
-				for(var i = 0, length1 = optionBox.children.length; i < length1; i++){
-					optionBox.children[i].children[0].name = qn.name;
-				}
-			}
-			if (preQn.type == 'textarea') {
-				preoptionBox.children[0].name = preQn.name;
-			}
-			else {
-				for(var j = 0, length2 = preoptionBox.children.length; j < length2; j++){
-					preoptionBox.children[j].children[0].name = preQn.name;
-				}
-			}
 			questions.splice(index-1, 2 , qn ,preQn);
 			$('.questionBox').eq(index).fadeOut(100 ,()=>{
-				title.innerHTML = 'Q'+index;
-				ptitle.innerHTML = 'Q'+(index+1);
 				wrapper.removeChild(qnbox);
 				wrapper.insertBefore(qnbox, preQnbox);
 				checkInterface();
+				randerNumber();
 				$('.questionBox').eq(index-1).fadeIn(100);
 			});	
 		}
@@ -157,71 +163,51 @@
 			var qnbox = document.getElementsByClassName('questionBox')[index];
 			var nextQnbox = qnbox.nextElementSibling;
 			var wrapper = document.getElementsByClassName('questions')[0];
-			var title = document.getElementsByClassName('titleNumber')[index];
-			var ntitle = document.getElementsByClassName('titleNumber')[index+1];
-			var optionBox = document.getElementsByClassName('questionBoxOptions')[index];
-			var nextoptionBox = document.getElementsByClassName('questionBoxOptions')[index+1];
 
 			nextQn.id = index+1;
 			qn.id = index+2;
 			nextQn.name = 'question-' + nextQn.id;
 			qn.name = 'question-' + qn.id ;
 
-			if (qn.type == 'textarea') {
-				optionBox.children[0].name = qn.name;
-			}
-			else {
-				for(var i = 0, length1 = optionBox.children.length; i < length1; i++){
-					optionBox.children[i].children[0].name = qn.name;
-				}
-			}
-			if (nextQn.type == 'textarea') {
-				nextoptionBox.children[0].name = nextQn.name;
-			}
-			else {
-				for(var j = 0, length2 = nextoptionBox.children.length; j < length2; j++){
-					nextoptionBox.children[j].children[0].name = nextQn.name;
-				}
-			}
 			questions.splice(index, 2 , nextQn , qn);
 			$('.questionBox').eq(index).fadeOut(100 ,()=>{
-				title.innerHTML = 'Q'+(index+2);
-				ntitle.innerHTML = 'Q'+(index+1);
 				wrapper.removeChild(nextQnbox);
 				wrapper.insertBefore(nextQnbox, qnbox);
-				checkInterface();
+				checkInterface();	
+				randerNumber();
 				$('.questionBox').eq(index+1).fadeIn(100);
 			});
 		}
 		function cloneQ (qn) {
 			if (questions.length == 10) 
 				return alert('輸入問題數已達上限');
-			console.log(qn);
+			
+			var cloneQn = {};
+			cloneQn.id = qn.id + 1;
+			cloneQn.name = 'question-' + cloneQn.id;
+			cloneQn.options = qn.options.slice();
+			cloneQn.question = qn.question;
+			cloneQn.type = qn.type;
+
+			var index = questions.indexOf(qn);
+			questions.splice(index+1 , 0 , cloneQn);
 		}
 		function deleteQ (qn) {
 			console.log(qn);
 		}
-		
-		function randerQuestion(randerAll) {
-			if (randerAll) {
-				for(var i = 0, length1 = questions.length; i < length1; i++){
-					questions[i]
-				}
-			}
-			else {
-				var newQn = questions[questions.length-1] ;
-				$('.titleNumber:last').html('Q' + newQn.id);
-				$('.titleText:last').html(newQn.question);
-				setInterface(newQn);
-				checkInterface();
-				createButtons(newQn.type , newQn.options.length ,newQn.name , newQn.options , $('.questionBoxOptions:last'));
-			}
+		function addQuestion() {
+			var newQn = questions[questions.length-1] ;
+			$('.titleNumber:last').html('Q' + newQn.id);
+			$('.titleText:last').html(newQn.question);
+			setInterface(newQn);
+			checkInterface();
+			createButtons(newQn.type , newQn.options.length ,newQn.name , newQn.options , $('.questionBoxOptions:last'));
 		}
 		if (location.hash == '#editpage') {
 			
 		}
 		$( '#addBtn' ).click(() => {
-			$( '.selectQ:eq(0)').slideDown('fast');
+			$( '.selectQ:eq(0)').slideToggle('fast');
 		});
 		$('.buttons:eq(0)').on('click' , () => {
 			$('.hint-background').fadeIn('fast');
@@ -255,7 +241,7 @@
 			else {
 				setQuestion(inputName.value , inputType , inputOption.value);
 				createQuestionBox();
-				randerQuestion();
+				addQuestion();
 			}
 			$('.hint-background').slideUp('fast');
 		});
