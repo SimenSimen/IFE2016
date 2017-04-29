@@ -11,6 +11,9 @@ body {
 	letter-spacing: -1px;
 	font-size: 15px;
 }
+.navbar-text {
+	color: #fff;
+}
 .circleSpan {
 	float: right;
 	margin-top: 14px; 

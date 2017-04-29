@@ -18,9 +18,8 @@
 							{ id : 1, name : 'question-1' , options : ['曹西平' , '西瓜' , '大西瓜'], question : '喜歡的東西', type : 'radio'} ,
 							{ id : 2, name : 'question-2' , options : ['曹西平' , '西瓜' , '大西瓜'], question : '不喜歡的東西', type : 'checkbox'} ,
 							{ id : 3, name : 'question-3', options : {'0':false}, question : '小胖老師的感想', type : 'textarea' }
-						], 
-						public : false ,
-						data : {}
+						],
+						public : false 
 					},
 					{
 						title : '我的第二份問卷' , 
@@ -31,8 +30,7 @@
 							{ id : 2, name : 'question-2' , options : ['曹西平' , '大西瓜'], question : '不喜歡的東西', type : 'checkbox'} ,
 							{ id : 3, name : 'question-3', options : {'0':false}, question : '大胖老師的感想', type : 'textarea' }
 						], 
-						public : true,
-						data : {}
+						public : true
 					},
 					{
 						title : '我的第三份問卷' , 
@@ -43,8 +41,7 @@
 							{ id : 2, name : 'question-2' , options : ['曹西平' , '西瓜' , '大西瓜'], question : '不喜歡的東西', type : 'checkbox'} ,
 							{ id : 3, name : 'question-3', options : {'0':false}, question : '中胖老師的感想', type : 'textarea' }
 						],
-						public : true ,
-						data : {}
+						public : true 
 					}
 				];
 
@@ -52,6 +49,50 @@
 				return firstData ;
 			}	
 		};
+		function randomPercent (n) {
+			var numbers = [];
+			var total = 0;
+			for (var i = 0; i < n ; i++) {
+				var a = Math.floor(Math.random()*50+1);
+				total += a;
+				numbers.push(a);
+			}
+			return numbers.map((number)=>{
+				return Math.floor((number / total)*10000)/100;
+			});
+		}
+		function randomData (qn) {
+			var questions = qn.questions.slice();
+			var datas = [];
+			for(var i = 0, length1 = questions.length; i < length1; i++){
+				var data = {};
+				switch (questions[i].type) {
+					case 'radio' :
+						var length2 = questions[i].options.length;
+						var rp = randomPercent(length2);
+						for (var option = 0 ; option < length2 ; option++) {
+							data[questions[i].options[option]] = rp[option];
+						}
+						datas.push(data);
+						break;
+					case 'checkbox' :
+						var length2 = questions[i].options.length;
+						for (var option = 0 ; option < length2 ; option++) {
+							data[questions[i].options[option]] = Math.floor(Math.random()*500+1);
+						}
+						datas.push(data);
+						break;
+					case 'textarea' :
+						var length2 = questions[i].options.length;
+						var rp = randomPercent(2);
+						data['有效回答'] = rp[0];
+						data['無效回答'] = rp[1];
+						datas.push(data);
+						break;
+				}
+			}
+			return datas;
+		}
 		function createQuestionnairesBox () {
 			var parent = document.getElementsByClassName('questionnaire')[0];
 			var tr = document.createElement('tr');
@@ -59,9 +100,10 @@
 				var td = document.createElement('td');
 				tr.appendChild(td);
 			}
-			parent.insertBefore(tr,document.getElementsByClassName('btnRow')[0]);
+			parent.appendChild(tr);
 			return tr;
 		}
+
 		function selectAllQuestionnaires () {
 			var checkboxes = document.getElementsByClassName('selectBtn');
 			selectAll = selectAll == false ? true : false; 
@@ -70,17 +112,22 @@
 			}
 		};
 		function deleteQuestionnaire (qnData) {
-			console.log(qnData);
+			var questionnaires = JSON.parse(localStorage.getItem('questionnaires'));
+			var index = qnData.id - 1 ;
+			questionnaires.splice(index , 1);
+			localStorage.setItem('questionnaires', JSON.stringify(questionnaires));
 		};
 		function checkQuestionnaire (qnData) {
-			console.log(qnData);
+			localStorage.setItem('quetionnairePage' , JSON.stringify(qnData));
+			location.href = 'questionnairePage.html';
 		};
 		function editQuestionnaire (qnData) {
 			localStorage.setItem('editPage' , JSON.stringify(qnData));
 			location.href = 'createQuestionPage.html#editPage';
 		};
 		function checkDataQnReceived (qnData) {
-			console.log(qnData);
+			localStorage.setItem('dataPage' , JSON.stringify(qnData));
+			location.href = 'datapage.html';
 		}
 		function checkState (data) {
 			if (!data.public) 
@@ -112,6 +159,7 @@
 				});
 				btns[1].addEventListener('click', ()=> {
 					deleteQuestionnaire(qnData);
+					randerQuestionnaires();
 				});
 				btns[2].addEventListener('click', ()=> {
 					checkQuestionnaire(qnData);
@@ -141,16 +189,35 @@
 			 
 		};*/
 		function randerQuestionnaires() {
+			var tbody = document.getElementsByClassName('questionnaire')[0];
+			tbody.innerHTML = '';
+			selectAll = false ;
+
 			var data = getQuestionnaires();
+
 			for(var i = 0, length1 = data.length; i < length1; i++){
 				var box = createQuestionnairesBox();
 				var stateChecked = checkState(data[i]);
-
 				data[i].state = stateChecked;
 
 				data[i].id = i+1;
-					if( i == 0) 
-						box.className = 'firstRow';
+				if(data[i].data) {
+					if (data[i].data.length == 0 && data[i].state != 0) {
+						data[i].data = randomData(data[i]);
+						data.splice(i ,1, data[i]);
+						localStorage.setItem('questionnaires', JSON.stringify(data));
+					}
+				}
+				else {
+					if (data[i].state != 0) {
+						data[i].data = randomData(data[i]);
+						data.splice(i ,1, data[i]);
+						localStorage.setItem('questionnaires', JSON.stringify(data));
+					}
+				}
+
+				if( i == 0) 
+					box.className = 'firstRow';
 
 				var selectBtn = document.createElement('input');
 				selectBtn.className = 'selectBtn';
@@ -168,10 +235,28 @@
 				
 				createButtons(box.children[4] , stateChecked , data[i]);
 			}
+			var btnBox = createQuestionnairesBox();
+			btnBox.className = 'btnRow';
+
+			var selectAllBtn = document.createElement('input');
+			var selectText = document.createElement('span');
+			selectText.innerHTML = ' 全選';
+			selectAllBtn.type = 'checkbox';
+			selectAllBtn.addEventListener('click', selectAllQuestionnaires);
+
+			var selectedDeleteBtn = document.createElement('span');
+			selectedDeleteBtn.className = 'all-buttons';
+			selectedDeleteBtn.innerHTML = '刪除';
+			selectedDeleteBtn.addEventListener('click', ()=>{
+				var checkboxes = document.getElementsByClassName('selectBtn');
+			});
+
+			btnBox.children[0].appendChild(selectAllBtn);
+			btnBox.children[0].appendChild(selectText);
+
+			btnBox.children[1].appendChild(selectedDeleteBtn);
 		};
 
-		selectAllBtn.addEventListener('click', selectAllQuestionnaires );
-		selectedDeleteBtn.addEventListener('click', ()=>{});
 		randerQuestionnaires();
 	};
 	window.addEventListener('load',init) ;

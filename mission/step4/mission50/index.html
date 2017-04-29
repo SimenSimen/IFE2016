@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
 	<meta charset="UTF-8">
-	<title>mission50</title>
+	<title>微型問卷調查平台</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="style/mission50.css">
 	<link rel="stylesheet" href="style/mainPage.css">
@@ -18,7 +18,7 @@
 				<span class="circleSpan navbar-text">?</span>
 			</div>
 			<div class="col-md-9">
-				<span class="navbar-text">我的問卷</span>
+				<a href="index.html"><span class="navbar-text">我的問卷</span></a>
 			</div>
 		</div>
 	</nav>
@@ -30,25 +30,14 @@
 						<tr>
 							<td class="col-md-1"></td>
 							<td class="col-md-4">標題</td>
-							<td class="col-md-3">時間</td>
+							<td class="col-md-3">建立時間</td>
 							<td class="col-md-1">狀態</td>
 							<td class="col-md-3">操作<a href="createQuestionPage.html"><span id="create" class="ogButton"><span class="glyphicon glyphicon-plus"></span>新建問卷</span></a>
 							</td>			
 						</tr>
 					</thead>
 						<tbody class="questionnaire">
-							<tr class="btnRow">
-								<td>
-									<input type="checkbox" id="selectAllBtn">
-									<span>全選</span>
-								</td>
-								<td>
-									<span class="all-buttons" id="selectedDeleteBtn">刪除</span>
-								</td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
+						
 						</tbody>
 					</div>			
 				</table>
