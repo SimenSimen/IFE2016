@@ -6,7 +6,9 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
 	<link rel="stylesheet" href="style/mission50.css">
 	<link rel="stylesheet" href="style/mainPage.css">
-	<script src="script/mission50.js"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	<script src="script/randerQuestionnaires.js"></script>
+	<script src="script/hintBox.js"></script>
 </head>
 <body>
 	<nav class="navbar">
@@ -30,64 +32,45 @@
 							<td class="col-md-4">標題</td>
 							<td class="col-md-3">時間</td>
 							<td class="col-md-1">狀態</td>
-							<td class="col-md-3">操作<span id="create" class="ogButton"><span class="glyphicon glyphicon-plus"></span>新建問卷</span>
+							<td class="col-md-3">操作<a href="createQuestionPage.html"><span id="create" class="ogButton"><span class="glyphicon glyphicon-plus"></span>新建問卷</span></a>
 							</td>			
 						</tr>
 					</thead>
-						<tbody>
-						<tr class="firstRow">
-							<td>
-								<input type="checkbox">
-							</td>
-							<td>這是我的第一份問卷</td>
-							<td>2014-09-25-22:30:21</td>
-							<td>已發布</td>
-							<td>
-								<span class="all-buttons">編輯</span>
-								<span class="all-buttons">刪除</span>
-								<span class="all-buttons">查看數據</span>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<input type="checkbox">
-							</td>
-							<td>這是我的第一份問卷</td>
-							<td>2014-09-25-22:30:21</td>
-							<td>未發布</td>
-							<td>
-								<span class="all-buttons">編輯</span>
-								<span class="all-buttons">刪除</span>
-								<span class="all-buttons">查看數據</span>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<input type="checkbox">
-							</td>
-							<td>這是我的第一份問卷</td>
-							<td>2014-09-25-22:30:21</td>
-							<td>已結束</td>
-							<td>
-								<span class="all-buttons">編輯</span>
-								<span class="all-buttons">刪除</span>
-								<span class="all-buttons">查看數據</span>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<input type="checkbox">
-								<span>全選</span>
-							</td>
-							<td>
-								<span class="all-buttons">刪除</span>
-							</td>
-							<td></td>
-							<td></td>
-							<td></td>
-						</tr>
+						<tbody class="questionnaire">
+							<tr class="btnRow">
+								<td>
+									<input type="checkbox" id="selectAllBtn">
+									<span>全選</span>
+								</td>
+								<td>
+									<span class="all-buttons" id="selectedDeleteBtn">刪除</span>
+								</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
 					</div>			
 				</table>
+			</div>
+		</div>
+	</div>
+	<div class="hint-background" style="display: none;">
+		<div class="hint">
+			<div class="hintHeader">
+				<div id = "hintHeaderText">
+					<span>提示</span>
+					<span class="closebtn">&#10006;</span>
+				</div>
+			</div>
+			<div class="hintContainer">
+				<div class="hintContent">
+					
+				</div>
+				<div class="buttongroup">
+					<span class="all-buttons" id='hint-confirm'>確認</span>
+					<span class="all-buttons" id='hint-cancel'>取消</span>
+				</div>		
 			</div>
 		</div>
 	</div>

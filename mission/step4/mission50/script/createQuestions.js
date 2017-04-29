@@ -223,9 +223,81 @@
 			checkInterface();
 			createButtons(newQn , $('.questionBoxOptions:last'));
 		}
-		if (location.hash == '#editpage') {
-			
+		function rander (questionnaire) {
+
+			titleinput.value = questionnaire.title;
+
+			for(var i = 0, length1 = questionnaire.questions.length; i < length1; i++){
+				questions.push(questionnaire.questions[i]);
+				createQuestionBox();
+				addQuestion();			
+			}
+
+			var deadline = new Date(questionnaire.deadline.year , questionnaire.deadline.month-1 , questionnaire.deadline.day , 0, 0, 0); 
+			var today = new Date();
+
+			if (deadline - today >= 0){
+				showdate.value = questionnaire.deadline.year + ' / ' + questionnaire.deadline.month + ' / ' +  questionnaire.deadline.day;
+				showdate.setAttribute('date-set', 1);
+			}
+			else {
+				showdate.value = '截止日已過期，請重新選取';
+				showdate.setAttribute('date-set', 0);
+			}
 		}
+		function setQuestionnaire (public) {
+			var checkdate = showdate.getAttribute('date-set');
+			var today = new Date();
+
+			if (location.hash == '#editPage') {
+				var editdata = localStorage.getItem('editPage');
+				if(editdata) 
+					var questionnaireEdit = JSON.parse(editdata);
+			}
+
+			if(checkdate == 0 || !showdate.value)
+				return alert('請選取截止日期');
+			if(questions.length == 0)
+				return alert('請填入問題');
+
+			
+			var questionnaire = {};
+			questionnaire.title = titleinput.value ;
+
+			questionnaire.deadline = { 
+				year : editdata ?  questionnaireEdit.deadline.year : calendarGetDay__.year, 
+				month : editdata ? questionnaireEdit.deadline.month : calendarGetDay__.month, 
+				day : editdata ? questionnaireEdit.deadline.day : calendarGetDay__.day
+			}
+
+			questionnaire.createDate = editdata ? questionnaireEdit.createDate.slice() :
+
+			[[
+				today.getFullYear() , (today.getMonth()+1) , today.getDate()
+			] , [
+				today.getHours() , today.getMinutes() , today.getSeconds()
+			]];
+
+			questionnaire.questions = questions.slice();
+
+			questionnaire.public = public;
+			
+			var questionnaires = JSON.parse(localStorage.getItem('questionnaires'));
+
+			if (editdata) {
+				var index = questionnaireEdit.id - 1 ;
+				questionnaires.splice(index , 1 , questionnaire);
+			}
+			else 
+				questionnaires.push(questionnaire);
+
+			var data = JSON.stringify(questionnaires);
+			localStorage.setItem('questionnaires', data);
+			
+			window.onbeforeunload = null ;
+
+			location.href = 'index.html';
+		};
 		$( '#addBtn' ).click(() => {
 			$( '.selectQ:eq(0)').slideToggle('fast');
 		});
@@ -265,6 +337,26 @@
 			}
 			$('.hint-background').slideUp('fast');
 		});
+		$('.footerBtnBox span').eq(0).on('click' , ()=>{
+			setQuestionnaire(false);
+		});
+		$('.footerBtnBox span').eq(1).on('click' , ()=>{
+			setQuestionnaire(true);
+		});
+		
+		if (location.hash == '#editPage') {
+			var editdata = localStorage.getItem('editPage');
+			if(editdata) {
+				var questionnaire = JSON.parse(editdata);
+				rander(questionnaire);
+			}
+		}
 	}
 	window.addEventListener('load',init);
+	window.addEventListener('unload' , ()=>{
+		localStorage.removeItem('editPage');
+	});
+	window.onbeforeunload = ()=>{ 
+		return "Here you can append a custom message to the default dialog.";
+	};
 })();

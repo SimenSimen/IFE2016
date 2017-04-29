@@ -150,17 +150,22 @@ var id_ = (id)=>{return document.getElementById(id);};
 			calendarDiv.style = null;
 		};
 		function hideCalender (e) {
-			if (e.target.tagName == 'HTML') {
+			if (e.target.id != 'showdate' && e.target.id != 'calendarHeader' && e.target.className != 'arrowleft' &&  e.target.className != 'arrowright') {
 				calendarDiv.style = 'display : none';
 			}
 		}
 		function getSelectDate (date) {
 			var today = new Date();
-			var checkeday = new Date( date.year , date.month-1 , date.day , today.getHours()+1);
-			if (checkeday - today >= 0) 
+			var checkeday = new Date( date.year , date.month-1 , date.day , today.getHours());
+			if (checkeday - today >= 0) {
+				showdate.setAttribute('date-set', 1);
+				window.calendarGetDay__ = date;
 				return;
-			else
+			}
+			else {
 				showdate.value = '請勿選取過去的日子 !';
+				showdate.setAttribute('date-set', 0);
+			}
 		}
 		randerCalendar();
 		table.addEventListener('mouseover', dateHover);
