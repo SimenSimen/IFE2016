@@ -6,6 +6,9 @@
 		function getQuestionnaires () {
 			if (localStorage.getItem('questionnaires')) {
 				var questionnaires = JSON.parse(localStorage.getItem('questionnaires'));
+				if (questionnaires.length == 0) {
+					showCreatePageBtn();
+				}
 				return questionnaires ;
 			}
 			else {
@@ -185,15 +188,44 @@
 			}	
 		};
 
-	/*	function showCreatePageBtn() {
-			 
-		};*/
+		function showCreatePageBtn() {
+			var container = document.getElementsByClassName('contentWrapper')[0];
+			container.innerHTML = '';
+
+			var div = document.createElement('div');
+			var span = document.createElement('span');
+			div.className = 'createPageBtnBox';
+			span.className = 'createPageBtn';
+
+			div.appendChild(span);
+			container.appendChild(div);
+			span.innerHTML = '<span class="glyphicon glyphicon-plus"></span>新建問卷';
+			span.addEventListener('click', ()=>{
+				location.href = 'createQuestionPage.html';
+			});
+		};
+		function deleteSelect (datas) {
+			var selectBtn = document.getElementsByClassName('selectBtn');
+			var deleteQueue = [];
+			for(var i = 0, length1 = selectBtn.length; i < length1; i++){
+				if(selectBtn[i].checked && datas[i].state == 0) 
+					deleteQueue.push(i);
+			}
+			for (var length = deleteQueue.length , j = length-1 ; j >= 0 ; j--){
+				datas.splice(deleteQueue[j] , 1);
+			}
+			localStorage.setItem('questionnaires', JSON.stringify(datas));
+			randerQuestionnaires();
+		}
 		function randerQuestionnaires() {
 			var tbody = document.getElementsByClassName('questionnaire')[0];
 			tbody.innerHTML = '';
 			selectAll = false ;
 
 			var data = getQuestionnaires();
+
+			if(data.length == 0)
+				return;
 
 			for(var i = 0, length1 = data.length; i < length1; i++){
 				var box = createQuestionnairesBox();
@@ -247,8 +279,8 @@
 			var selectedDeleteBtn = document.createElement('span');
 			selectedDeleteBtn.className = 'all-buttons';
 			selectedDeleteBtn.innerHTML = '刪除';
-			selectedDeleteBtn.addEventListener('click', ()=>{
-				var checkboxes = document.getElementsByClassName('selectBtn');
+			selectedDeleteBtn.addEventListener('click',()=>{
+				deleteSelect(data);
 			});
 
 			btnBox.children[0].appendChild(selectAllBtn);
