@@ -95,7 +95,7 @@
 			for(  j = 0 , length = step2[1] - step2[0] + 1 ; j < length ; j++) {
 				thumbnail = createMissionBox();
 				mission = 'mission' + (step2[0]+j) ;
-				thumbnail.href.href = url +'step1/' + mission + '.html';
+				thumbnail.href.href = url +'step2/' + mission + '.html';
 				thumbnail.span.innerHTML = step2Title[j];
 				missionBox[2].appendChild(thumbnail.box);
 			}
